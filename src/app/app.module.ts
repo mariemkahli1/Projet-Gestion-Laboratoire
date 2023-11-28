@@ -7,17 +7,55 @@ import { AppComponent } from './app.component';
 import { MemberComponent } from './components/member/member.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
+import { MemberFormComponent } from './components/member-form/member-form.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ToolComponent } from './components/tool/tool.component';
+import { ArticleComponent } from './components/article/article.component';
+import { EventComponent } from './components/event/event.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {  MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     AppComponent,
-    MemberComponent
+    MemberComponent,
+    MemberFormComponent,
+    ConfirmDialogComponent,
+    DashboardComponent,
+    ToolComponent,
+    ArticleComponent,
+    EventComponent,
+    LayoutComponent,
   ],
   imports: [
+    MatDialogModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatMenuModule,
+    FlexLayoutModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
