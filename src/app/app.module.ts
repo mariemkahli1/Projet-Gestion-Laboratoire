@@ -25,6 +25,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {  MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { FirebaseModule } from './Firebase.module';
+import { LoginComponent } from './components/login/login.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { MatMenuModule } from '@angular/material/menu';
     ArticleComponent,
     EventComponent,
     LayoutComponent,
+    LoginComponent,
   ],
   imports: [
     MatDialogModule,
@@ -56,6 +60,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    FirebaseModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ToolComponent } from './components/tool/tool.component';
 import { ArticleComponent } from './components/article/article.component';
 import { EventComponent } from './components/event/event.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   
@@ -16,7 +17,7 @@ const routes: Routes = [
   },{
     path:'',
     pathMatch:'full',
-    redirectTo:'dashboard',
+    component: LoginComponent
   },
   {
     path:'create',
