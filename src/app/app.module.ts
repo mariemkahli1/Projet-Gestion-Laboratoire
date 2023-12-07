@@ -28,6 +28,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FirebaseModule } from './Firebase.module';
 import { LoginComponent } from './components/login/login.component';
 import {MatCardModule} from '@angular/material/card';
+import { EventFormComponent } from './components/event-form/event-form.component';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -41,8 +44,11 @@ import {MatCardModule} from '@angular/material/card';
     EventComponent,
     LayoutComponent,
     LoginComponent,
+    EventFormComponent,
   ],
   imports: [
+    MatNativeDateModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatSidenavModule,
     MatToolbarModule,

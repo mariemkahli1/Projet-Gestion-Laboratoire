@@ -7,6 +7,7 @@ import { ToolComponent } from './components/tool/tool.component';
 import { ArticleComponent } from './components/article/article.component';
 import { EventComponent } from './components/event/event.component';
 import { LoginComponent } from './components/login/login.component';
+import { EventFormComponent } from './components/event-form/event-form.component';
 
 const routes: Routes = [
   
@@ -28,6 +29,16 @@ const routes: Routes = [
     path:'edit/:id',
     pathMatch:'full',
     component: MemberFormComponent
+  },
+  {
+    path:'event/create',
+    pathMatch:'full',
+    component: EventFormComponent
+  },
+  {
+    path:'event/edit/:id',
+    pathMatch:'full',
+    component: EventFormComponent
   },
   {
     path:'dashboard',
