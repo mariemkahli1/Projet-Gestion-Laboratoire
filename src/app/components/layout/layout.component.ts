@@ -12,7 +12,8 @@ export class LayoutComponent implements OnInit{
   constructor(private authservice:AuthService,private router:Router){}
   ngOnInit(): void {
     this.authservice.getUserClaims().then((res)=>{
-      this.user=res.multiFactor.user
+      this.user=res
+      
     })
   }
   logout():void{

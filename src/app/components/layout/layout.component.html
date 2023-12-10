@@ -33,19 +33,19 @@
         <div class="toolbar-separator"></div>
         
        <button [matMenuTriggerFor]="userMenu" class="toolbar-button" mat-button style="margin-left: 85%; margin-right: 5%;">
-          <div fxLayout="row" fxLayoutAlign="center center" >
-               <img class="avatar mr-0 mr-sm-16" *ngIf="!!user" src="{{user.photoURL}}" style="border-radius: 50px; width: 40px;height: 40px;"/>
-            <mat-icon>account_circle</mat-icon>
-            <span class="username mx-12" fxHide fxShow.gt-sm></span>
+          <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!!user">
+               <img class="avatar mr-0 mr-sm-16"  src="{{user.photoURL}}" style="border-radius: 50px; width: 40px;height: 40px;"/>
+            
+            <span class="username mx-12" fxHide fxShow.gt-sm>{{user.displayName}}</span>
             <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
           </div>
         </button>
 
         <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
 
-          <button class="" mat-menu-item *ngIf="!!user">
+          <button class="" mat-menu-item >
             <mat-icon>account_box</mat-icon>
-            <span>{{user.displayName}}</span>
+            <span>profile</span>
           </button>
           <button class="" (click)="logout()" mat-menu-item >
             <mat-icon>exit_to_app</mat-icon>

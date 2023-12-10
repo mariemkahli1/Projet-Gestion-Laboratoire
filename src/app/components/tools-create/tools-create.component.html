@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>ToolsCreate</h2>
+<mat-dialog-content [formGroup]="form">
+  
+  <mat-form-field>
+      <input matInput
+             placeholder="Date"
+             formControlName="Date">
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput
+             placeholder="Source"
+             formControlName="Source">
+  </mat-form-field>
+  <mat-form-field>
+      <mat-label>Createur</mat-label>
+      <mat-select formControlName="Createur">
+          <mat-option *ngFor="let createur of createurs" [value]="createur">
+              {{ createur }}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+</mat-dialog-actions>

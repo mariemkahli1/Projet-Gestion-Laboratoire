@@ -31,6 +31,8 @@ import {MatCardModule} from '@angular/material/card';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -45,8 +47,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     LayoutComponent,
     LoginComponent,
     EventFormComponent,
+    ToolsCreateComponent,
   ],
   imports: [
+    MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,
