@@ -13,23 +13,30 @@ const routes: Routes = [
   
   {
     path:'members',
-    pathMatch:'full',
-    component: MemberComponent
-  },{
+    //pathMatch:'full',
+    //component: MemberComponent,
+    children:[{
+      path:'',
+      pathMatch:'full',
+      component: MemberComponent
+    },
+    {
+      path:'create',
+      pathMatch:'full',
+      component: MemberFormComponent
+    },
+    {
+      path:'edit/:id',
+      pathMatch:'full',
+      component: MemberFormComponent
+    },]
+  },
+  {
     path:'',
     pathMatch:'full',
     component: LoginComponent
   },
-  {
-    path:'create',
-    pathMatch:'full',
-    component: MemberFormComponent
-  },
-  {
-    path:'edit/:id',
-    pathMatch:'full',
-    component: MemberFormComponent
-  },
+
   {
     path:'event/create',
     pathMatch:'full',

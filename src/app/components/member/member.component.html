@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="end center" >
-    <button mat-raised-button routerLink="/create">Create new</button>
+    <button mat-raised-button routerLink="create">Create new</button>
 </div>
 <mat-form-field>
     <mat-label>Filter</mat-label>
@@ -51,7 +51,7 @@
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-            <button routerLink="/edit/{{element.id}}"><mat-icon >edit</mat-icon></button>
+            <button routerLink="edit/{{element.id}}"><mat-icon >edit</mat-icon></button>
             <button (click)="deleteMember(element.id)"><mat-icon>delete</mat-icon></button>
         </td>
     </ng-container>

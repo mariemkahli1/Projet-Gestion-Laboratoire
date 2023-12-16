@@ -6,7 +6,8 @@
             "name": "youssef",
             "createdDate": "12/12/2022",
             "cv": "https://www.cdc.gov/polio/stop/pdf/stop-cv-format.pdf",
-            "type": "teacher"
+            "type": "teacher",
+            "tab_pub": ["pub1","pub2","pub3"]
         },
         {
             "id": "2",
@@ -14,7 +15,8 @@
             "name": "med",
             "createdDate": "12/12/2021",
             "cv": "https://www.cdc.gov/polio/stop/pdf/stop-cv-format.pdf",
-            "type": "student"
+            "type": "student",
+            "tab_pub": ["pub1","pub2","pub3","pub2","pub3"]
         },
         {
             "id": "3",
@@ -22,7 +24,8 @@
             "name": "salah",
             "createdDate": "12/12/2022",
             "cv": "https://www.cdc.gov/polio/stop/pdf/stop-cv-format.pdf",
-            "type": "teacher"
+            "type": "teacher",
+            "tab_pub": ["pub1","pub2","pub3","pub4","pub5","pub6"]
         }
     ],
     "events": [

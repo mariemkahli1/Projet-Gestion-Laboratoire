@@ -33,6 +33,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
 import {MatSelectModule} from '@angular/material/select';
+import {  NgChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import {MatSelectModule} from '@angular/material/select';
     ToolsCreateComponent,
   ],
   imports: [
+    NgChartsModule,
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,

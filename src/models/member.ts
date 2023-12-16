@@ -5,4 +5,5 @@ export interface Member {
     createdDate:String,
     cv:String,
     type:String,
+    tab_pub:String[]
 }

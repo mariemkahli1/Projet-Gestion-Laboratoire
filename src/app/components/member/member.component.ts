@@ -26,9 +26,12 @@ export class MemberComponent implements OnInit{
   }
   fetch():void{
     this.MS.getMembers().subscribe((tab)=>{
+      
       this.dataSource=tab
+      this.dataSource2 = new MatTableDataSource(this.dataSource);
     })
-    this.dataSource2 = new MatTableDataSource(this.dataSource);
+    console.log(this.dataSource2);
+
   }
   deleteMember(id:string):void{
     //open the dialog component
