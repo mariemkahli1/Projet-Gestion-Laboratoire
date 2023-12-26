@@ -13,13 +13,13 @@
     <!-- Name Column -->
     <ng-container matColumnDef="Source">
         <th mat-header-cell *matHeaderCellDef> Source </th>
-        <td mat-cell *matCellDef="let element"> {{element.Source}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.source}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="Date">
         <th mat-header-cell *matHeaderCellDef> Date  </th>
-        <td mat-cell *matCellDef="let element"> {{element.Date }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.date  | date:"MMM dd, yyyy 'at' hh:mm a" }}</td>
         <!-- <td mat-cell *matCellDef="let element"> {{element.Date  | date:"MMM dd, yyyy 'at' hh:mm a" }} </td> -->
     </ng-container>
     <ng-container matColumnDef="Createur">
@@ -28,13 +28,13 @@
     </ng-container>
  
 
-    <!-- <ng-container matColumnDef="action">
+    <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-            <button routerLink="/event/edit/{{element.id}}"><mat-icon >edit</mat-icon></button>
-            <button (click)="deleteEvent(element.id)"><mat-icon>delete</mat-icon></button>
+            <button (click)="OpenDialog()"><mat-icon >edit</mat-icon></button>
+            <button (click)="deleteOutil(element.id)"><mat-icon>delete</mat-icon></button>
         </td>
-    </ng-container> -->
+    </ng-container> 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

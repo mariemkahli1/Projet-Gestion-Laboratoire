@@ -34,6 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
 import {MatSelectModule} from '@angular/material/select';
 import {  NgChartsModule } from 'ng2-charts';
+import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {  NgChartsModule } from 'ng2-charts';
     LoginComponent,
     EventFormComponent,
     ToolsCreateComponent,
+    EnseignantFormComponent,
   ],
   imports: [
     NgChartsModule,

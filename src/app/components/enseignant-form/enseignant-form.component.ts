@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Member } from 'src/models/member';
 import { MemberService } from 'src/services/member.service';
 
 @Component({
-  selector: 'app-member-form',
-  templateUrl: './member-form.component.html',
-  styleUrls: ['./member-form.component.css']
+  selector: 'app-enseignant-form',
+  templateUrl: './enseignant-form.component.html',
+  styleUrls: ['./enseignant-form.component.css']
 })
-export class MemberFormComponent implements OnInit {
+export class EnseignantFormComponent implements OnInit {
   constructor(private MS: MemberService, private router: Router, private activatedRoute: ActivatedRoute) { }
   form!: FormGroup;
   memberGlobal!: Member;
@@ -37,9 +36,8 @@ export class MemberFormComponent implements OnInit {
       cv: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required]),
       password: new FormControl("********", [Validators.required]),
-      sujet: new FormControl(null, [Validators.required]),
-      dateInscription: new FormControl(null, [Validators.required]),
-      diplome:  new FormControl(null, [Validators.required]),
+      grade: new FormControl(null, [Validators.required]),
+      etablissement: new FormControl(null, [Validators.required]),
     });
   }
   updateForm(item: Member): void {
@@ -51,23 +49,18 @@ export class MemberFormComponent implements OnInit {
       cv: new FormControl(item.cv, [Validators.required]),
       email: new FormControl(item.email, [Validators.required]),
       password: new FormControl("********", [Validators.required]),
-      sujet: new FormControl(item.sujet, [Validators.required]),
-      dateInscription: new FormControl(item.dateInscription, [Validators.required]),
-      diplome:  new FormControl(item.diplome, [Validators.required]),
+      grade: new FormControl(item.sujet, [Validators.required]),
+      etablissement: new FormControl(item.dateInscription, [Validators.required]),
     });
   }
   OnSubmit() {
 
     console.log(this.form.value)
-    const member1 = {
+    const member = {
       ...this.memberGlobal,
       ...this.form.value,
 
     }
-    const member2 = {
-      ...member1,
-      createdDate: member1.createdDate ?? new Date().toISOString().toString()
-    }
-    this.MS.SaveEtudiant(member1).subscribe(() => { this.router.navigate(['/members']) })
+    this.MS.SaveEnseignant(member).subscribe(() => { this.router.navigate(['/members']) })
   }
 }

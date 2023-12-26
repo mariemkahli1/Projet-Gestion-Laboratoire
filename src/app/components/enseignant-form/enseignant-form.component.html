@@ -1,4 +1,4 @@
-<h1>add new student</h1>
+<h1>add new professor</h1>
 <form [formGroup]="form" (ngSubmit)="OnSubmit()">
     <mat-form-field>
         <mat-label>Cin</mat-label>
@@ -29,16 +29,12 @@
         <input matInput formControlName="password">
     </mat-form-field>
     <mat-form-field>
-        <mat-label>sujet</mat-label>
-        <input matInput formControlName="sujet">
+        <mat-label>grade</mat-label>
+        <input matInput formControlName="grade">
     </mat-form-field>
     <mat-form-field>
-        <mat-label>dateInscription</mat-label>
-        <input matInput formControlName="dateInscription">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>diplome</mat-label>
-        <input matInput formControlName="diplome">
+        <mat-label>etablissement</mat-label>
+        <input matInput formControlName="etablissement">
     </mat-form-field>
 
     <button mat-raised-button color="primary">Submit</button>

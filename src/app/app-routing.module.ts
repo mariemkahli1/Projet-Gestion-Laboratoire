@@ -8,6 +8,8 @@ import { ArticleComponent } from './components/article/article.component';
 import { EventComponent } from './components/event/event.component';
 import { LoginComponent } from './components/login/login.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
+import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
+import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
 
 const routes: Routes = [
   
@@ -21,9 +23,14 @@ const routes: Routes = [
       component: MemberComponent
     },
     {
-      path:'create',
+      path:'create/student',
       pathMatch:'full',
       component: MemberFormComponent
+    },
+    {
+      path:'create/teacher',
+      pathMatch:'full',
+      component: EnseignantFormComponent
     },
     {
       path:'edit/:id',
@@ -56,6 +63,11 @@ const routes: Routes = [
     path:'tools',
     pathMatch:'full',
     component: ToolComponent
+  },
+  {
+    path:'tools/edit/:id',
+    pathMatch:'full',
+    component: ToolsCreateComponent
   },
   {
     path:'articles',

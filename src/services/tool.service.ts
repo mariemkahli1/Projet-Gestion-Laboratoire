@@ -11,24 +11,15 @@ export class ToolService {
   tab:Tool[]=GLOBAL._DB.tools;
 
   SaveTool(tool:Tool):Observable<void>{
-    //return this.httpClient.post<void>('linktoRestAPI',tool) ;
-    //this.tab.push(tool);
-    this.tab=[tool , ...this.tab.filter(item => item.id !=tool.id)]
-    return new Observable(observer=>{observer.next()})
+    return this.httpClient.post<void>("http://localhost:8100/OUTIL-SERVICE" ,tool) ;
   }
   getToolByid(id:string):Observable<Tool>{
-    //return this.httpClient.get<Tool>("linktoRestAPI")
-    
-    return new Observable(observer=>observer.next(this.tab.find(item=> item.id == id)))
+    return this.httpClient.get<Tool>("http://localhost:8100/OUTIL-SERVICE/outil/"+id)
   }
   deleteToolByid(id:string):Observable<void>{
-    //return this.httpClient.delete<void>('linktoRestAPI')
-    this.tab=[...this.tab.filter(item => item.id !==id)]
-
-    return new Observable(observer=>{observer.next()})
+    return this.httpClient.delete<void>("http://localhost:8100/OUTIL-SERVICE/"+id)
   }
   getTools():Observable<Tool[]>{
-    //return this.httpClient.get<Event[]>("linktoRestAPI")
-    return new Observable(observer=>observer.next(this.tab))
+    return this.httpClient.get<Tool[]>("http://localhost:8100/OUTIL-SERVICE/outil")
   }
 }

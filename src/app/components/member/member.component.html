@@ -1,5 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="end center" >
-    <button mat-raised-button routerLink="create">Create new</button>
+    <button mat-raised-button routerLink="create/student">add new student</button>
+</div>
+<div fxLayout="row" fxLayoutAlign="end center" >
+    <button mat-raised-button routerLink="create/teacher">add new teacher</button>
 </div>
 <mat-form-field>
     <mat-label>Filter</mat-label>
@@ -26,7 +29,7 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nom}} {{element.prenom}}  </td>
     </ng-container>
 
     <!-- Symbol Column -->
@@ -45,7 +48,7 @@
 
     <ng-container matColumnDef="createdDate">
         <th mat-header-cell *matHeaderCellDef> Created Date </th>
-        <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.dateInscription}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

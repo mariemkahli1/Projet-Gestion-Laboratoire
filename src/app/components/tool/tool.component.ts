@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToolsCreateComponent } from '../tools-create/tools-create.component';
 import { ToolService } from 'src/services/tool.service';
 import { Tool } from 'src/models/tool';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-tool',
@@ -11,7 +12,7 @@ import { Tool } from 'src/models/tool';
 })
 export class ToolComponent implements OnInit {
   constructor(private TS:ToolService,private dialog: MatDialog) {}
-  displayedColumns: string[] = ['id', 'Date', 'Source', 'Createur'];
+  displayedColumns: string[] = ['id', 'Date', 'Source', 'Createur','action'];
   dataSource!: Tool[] ;
   ngOnInit(): void {
     this.fetch()
@@ -34,12 +35,23 @@ export class ToolComponent implements OnInit {
   dialogRef.afterClosed().subscribe(data => {
     
     if (data) {
-      const tool = {
-        id: Math.ceil(Math.random() * 1000),
-        ...data
-      }
-      this.TS.SaveTool(tool).subscribe(()=>{this.fetch()})
+      this.TS.SaveTool(data).subscribe(()=>{this.fetch()})
     }
   }); 
+}
+deleteOutil(id:string):void{
+  //open the dialog component
+  let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    height: '200px',
+    width: '300px',
+  });
+  // wait for the result of afterclosed
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.TS.deleteToolByid(id).subscribe(()=>{this.fetch()})
+    }
+  }); 
+  
+
 }
 }

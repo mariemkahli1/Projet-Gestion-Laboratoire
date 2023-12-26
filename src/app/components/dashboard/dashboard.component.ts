@@ -19,7 +19,7 @@ export class DashboardComponent {
     this.nb_Tools=this.Ts.tab.length;
     this.nb_Events=this.Es.tab.length;
     for (let i = 0; i < this.nb_Members; i++) {
-      this.chartLabels.push(this.Ms.tab[i].name)
+      this.chartLabels.push(this.Ms.tab[i].nom)
       
     }
 

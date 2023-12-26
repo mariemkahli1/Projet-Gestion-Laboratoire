@@ -10,26 +10,20 @@ import { Member } from 'src/models/member';
 export class MemberService {
   tab:Member[]=GLOBAL._DB.membres;
 
-  SaveMember(member:Member):Observable<void>{
-    //return this.httpClient.post<void>('linktoRestAPI',member) ;
-    //this.tab.push(member);
-    this.tab=[member , ...this.tab.filter(item => item.id !=member.id)]
-    return new Observable(observer=>{observer.next()})
+  SaveEtudiant(etudiant:Member):Observable<void>{
+    return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/etudiant" ,etudiant) ;
+  }
+  SaveEnseignant(enseignant:Member):Observable<void>{
+    return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/enseignant" ,enseignant) ;
   }
   getMemberByid(id:string):Observable<Member>{
-    //return this.httpClient.get<Member>("linktoRestAPI")
-    
-    return new Observable(observer=>observer.next(this.tab.find(item=> item.id == id)))
+    return this.httpClient.get<Member>("http://localhost:8100/MEMBRE-SERVICE/membre/"+id)
   }
   deleteMemberByid(id:string):Observable<void>{
-    //return this.httpClient.delete<void>('linktoRestAPI')
-    this.tab=[...this.tab.filter(item => item.id !==id)]
-
-    return new Observable(observer=>{observer.next()})
+    return this.httpClient.delete<void>("http://localhost:8100/MEMBRE-SERVICE/"+id)
   }
   getMembers():Observable<Member[]>{
-    //return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
-    return new Observable(observer=>observer.next(this.tab))
+    return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
   }
   tabpub:number[]=[]
   getNbPubByMember():Observable<number[]>{
