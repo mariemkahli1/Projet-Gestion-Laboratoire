@@ -14,10 +14,11 @@ export class DashboardComponent {
   nb_Tools:number=0;
   nb_Events:number=0;
   nb_Articles:number=0;
-  constructor(private Ms:MemberService,private Ts:ToolService,private Es:EventService){
+  constructor(private Ms:MemberService,private Ts:ToolService,private Es:EventService,private As:ArticleService){
     this.nb_Members=this.Ms.tab.length;
     this.nb_Tools=this.Ts.tab.length;
     this.nb_Events=this.Es.tab.length;
+    this.nb_Articles=this.As.tab.length;
     for (let i = 0; i < this.nb_Members; i++) {
       this.chartLabels.push(this.Ms.tab[i].nom)
       
@@ -35,7 +36,7 @@ export class DashboardComponent {
   chartOptions: ChartOptions = {};
   stab:number[]=[]
   getNumbers(){
-    this.Ms.getNbPubByMember().subscribe((x)=>this.stab=x)
+    //this.Ms.getNbPubByMember().subscribe((x)=>this.stab=x)
     return this.stab
   }
   chartLabelsPie: String[] = ["Student","Teacher"];

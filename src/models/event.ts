@@ -1,7 +1,7 @@
 export interface Event {
     id:String,
     titre:String,
-    DateDebut:String,
-    DateFin:String,
+    dateDebut:String,
+    dateFin:String,
     lieu:String,
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { GLOBAL } from 'src/app/app-config';
 import { Member } from 'src/models/member';
 
@@ -8,7 +8,17 @@ import { Member } from 'src/models/member';
   providedIn: 'root'
 })
 export class MemberService {
-  tab:Member[]=GLOBAL._DB.membres;
+  tab: Member[] = [];
+
+  getMembers(): Observable<Member[]> {
+    return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
+      .pipe(
+        tap((members: Member[]) => {
+          this.tab.push(...members);
+        })
+      );
+  }
+  
 
   SaveEtudiant(etudiant:Member):Observable<void>{
     return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/etudiant" ,etudiant) ;
@@ -22,16 +32,16 @@ export class MemberService {
   deleteMemberByid(id:string):Observable<void>{
     return this.httpClient.delete<void>("http://localhost:8100/MEMBRE-SERVICE/"+id)
   }
-  getMembers():Observable<Member[]>{
-    return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
-  }
+  // getMembers():Observable<Member[]>{
+  //   return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
+  // }
   tabpub:number[]=[]
-  getNbPubByMember():Observable<number[]>{
-    for (let i = 0; i < this.tab.length; i++) {
-      this.tabpub.push(this.tab[i].tab_pub.length)
-    }
-    return new Observable(observer=>observer.next(this.tabpub))
-  }
+  // getNbPubByMember():Observable<number[]>{
+  //   for (let i = 0; i < this.tab.length; i++) {
+  //     this.tabpub.push(this.tab[i].tab_pub.length)
+  //   }
+  //   return new Observable(observer=>observer.next(this.tabpub))
+  // }
   getNbStudByTeacher():Observable<number[]>{
     var tabStudent:number[]=[]
     var count =0

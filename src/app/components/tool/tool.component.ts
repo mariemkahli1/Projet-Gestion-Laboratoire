@@ -24,7 +24,7 @@ export class ToolComponent implements OnInit {
     console.log(this.dataSource);
     
   }
-  OpenDialog():void{
+  OpenDialog(id? :string ):void{
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -35,7 +35,11 @@ export class ToolComponent implements OnInit {
   dialogRef.afterClosed().subscribe(data => {
     
     if (data) {
-      this.TS.SaveTool(data).subscribe(()=>{this.fetch()})
+      const outil ={
+        id:id,
+        ...data
+      }
+      this.TS.UpdateTool(outil).subscribe(()=>{this.fetch()})
     }
   }); 
 }

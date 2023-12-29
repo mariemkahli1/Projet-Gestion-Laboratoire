@@ -19,8 +19,7 @@ export class EventFormComponent implements OnInit {
     const idcourant = this.activatedRoute.snapshot.params["id"] ;
     if(!!idcourant){
       this.ES.getEventByid(idcourant).subscribe((item)=>{
-        this.eventGlobal=item
-        this.initForm2(item)
+        this.changeState(item).then(()=>this.initForm2(item))
       })
     }
     else{
@@ -28,34 +27,38 @@ export class EventFormComponent implements OnInit {
     }
 
   }
+  changeState=async(item:Event)=>{
+    this.eventGlobal=item;
+  }
   initForm() {
     this.form = new FormGroup({
       titre: new FormControl(null, [Validators.required]),
-      DateDebut: new FormControl<Date | null>(null),
-      DateFin: new FormControl<Date | null>(null),
+      dateDebut: new FormControl<Date | null>(null),
+      dateFin: new FormControl<Date | null>(null),
       lieu: new FormControl(null, [Validators.required]),
     });
   }
   initForm2(item:Event):void {
+    console.log(item)
     this.form = new FormGroup({
       titre: new FormControl(item.titre, [Validators.required]),
-      DateDebut: new FormControl(item.DateDebut, [Validators.required]),
-      DateFin: new FormControl(item.DateFin, [Validators.required]),
+      dateDebut: new FormControl(item.dateDebut, [Validators.required]),
+      dateFin: new FormControl(item.dateFin, [Validators.required]),
       lieu: new FormControl(item.lieu, [Validators.required]),
     });
   }
   OnSubmit() {
-    
-      const event1 = {
-        ...this.eventGlobal,
-        ...this.form.value,
+    const idcourant = this.activatedRoute.snapshot.params["id"];
+    const event = {
+      ...this.eventGlobal,
+      ...this.form.value,
+    }
+    if (!!idcourant) {
+      this.ES.UpdateEvent(event).subscribe(() => { this.router.navigate(['/events']) })
+    }
+    else { 
+      this.ES.SaveEvent(event).subscribe(() => { this.router.navigate(['/events']) })
+    }
 
-      }
-      //remove id 
-      const event2 = {
-        ...event1,
-        id: event1.id ??Math.ceil(Math.random() * 1000),
-      }
-      this.ES.SaveEvent(event2).subscribe(()=>{this.router.navigate(['/events'])})
   }
 }

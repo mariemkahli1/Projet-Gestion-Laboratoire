@@ -44,22 +44,22 @@
         {
             "id": "1",
             "titre": "Hello world",
-            "DateDebut": "12/11/2022",
-            "DateFin": "12/12/2022",
+            "dateDebut": "12/11/2022",
+            "dateFin": "12/12/2022",
             "lieu": "Enis"
         },
         {
             "id": "2",
             "titre": "Enif",
-            "DateDebut": "12/26/2022",
-            "DateFin": "12/30/2022",
+            "dateDebut": "12/26/2022",
+            "dateFin": "12/30/2022",
             "lieu": "Enis"
         },
         {
             "id": "3",
             "titre": "Tsyp",
-            "DateDebut": "2/11/2022",
-            "DateFin": "3/12/2022",
+            "dateDebut": "2/11/2022",
+            "dateFin": "3/12/2022",
             "lieu": "Enis"
         }
     ],

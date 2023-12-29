@@ -35,6 +35,7 @@ import { ToolsCreateComponent } from './components/tools-create/tools-create.com
 import {MatSelectModule} from '@angular/material/select';
 import {  NgChartsModule } from 'ng2-charts';
 import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
+import { ArticleFormComponent } from './components/article-form/article-form.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { EnseignantFormComponent } from './components/enseignant-form/enseignant
     EventFormComponent,
     ToolsCreateComponent,
     EnseignantFormComponent,
+    ArticleFormComponent,
   ],
   imports: [
     NgChartsModule,

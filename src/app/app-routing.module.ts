@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
 import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
+import { ArticleFormComponent } from './components/article-form/article-form.component';
 
 const routes: Routes = [
   
@@ -65,14 +66,19 @@ const routes: Routes = [
     component: ToolComponent
   },
   {
-    path:'tools/edit/:id',
-    pathMatch:'full',
-    component: ToolsCreateComponent
-  },
-  {
     path:'articles',
     pathMatch:'full',
     component: ArticleComponent
+  },
+  {
+    path:'article/create',
+    pathMatch:'full',
+    component: ArticleFormComponent
+  },
+  {
+    path:'article/edit/:id',
+    pathMatch:'full',
+    component: ArticleFormComponent
   },
   {
     path:'events',

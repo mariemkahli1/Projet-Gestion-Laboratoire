@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { GLOBAL } from 'src/app/app-config';
 import { Event } from 'src/models/event';
 
@@ -9,28 +9,30 @@ import { Event } from 'src/models/event';
   providedIn: 'root'
 })
 export class EventService {
-  tab:Event[]=GLOBAL._DB.events;
-
+  tab:Event[]=[]
   SaveEvent(event:Event):Observable<void>{
-    //return this.httpClient.post<void>('linktoRestAPI',event) ;
-    //this.tab.push(event);
-    this.tab=[event , ...this.tab.filter(item => item.id !=event.id)]
-    return new Observable(observer=>{observer.next()})
+    return this.httpClient.post<void>("http://localhost:8100/EVENEMENT-SERVICE" ,event) ;
+
+  }
+  UpdateEvent(event:Event):Observable<void>{
+    return this.httpClient.put<void>("http://localhost:8100/EVENEMENT-SERVICE/evenement/update" ,event) ;
+
   }
   getEventByid(id:string):Observable<Event>{
-    //return this.httpClient.get<Event>("linktoRestAPI")
-    
-    return new Observable(observer=>observer.next(this.tab.find(item=> item.id == id)))
+    return this.httpClient.get<Event>("http://localhost:8100/EVENEMENT-SERVICE/evenement/"+id)
+
   }
   deleteEventByid(id:string):Observable<void>{
-    //return this.httpClient.delete<void>('linktoRestAPI')
-    this.tab=[...this.tab.filter(item => item.id !==id)]
+    return this.httpClient.delete<void>("http://localhost:8100/EVENEMENT-SERVICE/"+id)
 
-    return new Observable(observer=>{observer.next()})
   }
   getEvents():Observable<Event[]>{
-    //return this.httpClient.get<Event[]>("linktoRestAPI")
-    return new Observable(observer=>observer.next(this.tab))
+    return this.httpClient.get<Event[]>("http://localhost:8100/EVENEMENT-SERVICE/evenement").pipe(
+      tap((events: Event[]) => {
+        this.tab.push(...events);
+      })
+    );
+
   }
   
 
