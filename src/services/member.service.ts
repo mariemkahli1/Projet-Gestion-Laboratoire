@@ -8,17 +8,29 @@ import { Member } from 'src/models/member';
   providedIn: 'root'
 })
 export class MemberService {
-  tab: Member[] = [];
+  students: Member[] = [];
+  teachers: Member[] = [];
 
   getMembers(): Observable<Member[]> {
     return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
-      .pipe(
-        tap((members: Member[]) => {
-          this.tab.push(...members);
-        })
-      );
+      
   }
-  
+  getAllTeachers(): Observable<Member[]> {
+    return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/enseignant")
+    .pipe(
+      tap((members: Member[]) => {
+        this.teachers=members;
+      })
+    );
+  }
+  getAllStudents(): Observable<Member[]> {
+    return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/etudiant")
+    .pipe(
+      tap((members: Member[]) => {
+        this.students=members;
+      })
+    );
+  }
 
   SaveEtudiant(etudiant:Member):Observable<void>{
     return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/etudiant" ,etudiant) ;
@@ -45,12 +57,9 @@ export class MemberService {
   getNbStudByTeacher():Observable<number[]>{
     var tabStudent:number[]=[]
     var count =0
-    for (let i = 0; i < this.tab.length; i++) {
-      if (this.tab[i].type=="student") {
-        count++
-      }
-    }
-    tabStudent.push(count,this.tab.length-count)
+    tabStudent.push(count,this.teachers.length-count)
+    tabStudent.push(count,this.students.length-count)
+    
     return new Observable(observer=>observer.next(tabStudent))
   }
 

@@ -14,8 +14,10 @@ export class MemberFormComponent implements OnInit {
   constructor(private MS: MemberService, private router: Router, private activatedRoute: ActivatedRoute) { }
   form!: FormGroup;
   memberGlobal!: Member;
+  type!:String ;
+
   ngOnInit(): void {
-    //recupiration id
+    this.checkMemberType()
     const idcourant = this.activatedRoute.snapshot.params["id"];
     if (!!idcourant) {
       this.MS.getMemberByid(idcourant).subscribe((item) => {
@@ -26,7 +28,10 @@ export class MemberFormComponent implements OnInit {
     else {
       this.initForm()
     }
-
+  }
+  checkMemberType(): void {
+    const url = window.location.href;
+    this.type = url.includes('teacher') ? 'teacher' : 'student';
   }
   initForm() {
     this.form = new FormGroup({
@@ -35,11 +40,13 @@ export class MemberFormComponent implements OnInit {
       prenom: new FormControl(null, [Validators.required]),
       dateNaissance: new FormControl(null, [Validators.required]),
       cv: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required , Validators.email]),
       password: new FormControl("********", [Validators.required]),
       sujet: new FormControl(null, [Validators.required]),
       dateInscription: new FormControl(null, [Validators.required]),
       diplome:  new FormControl(null, [Validators.required]),
+      grade: new FormControl(null, [Validators.required]),
+      etablissement: new FormControl(null, [Validators.required]),
     });
   }
   updateForm(item: Member): void {
@@ -54,6 +61,8 @@ export class MemberFormComponent implements OnInit {
       sujet: new FormControl(item.sujet, [Validators.required]),
       dateInscription: new FormControl(item.dateInscription, [Validators.required]),
       diplome:  new FormControl(item.diplome, [Validators.required]),
+      grade: new FormControl(item.grade, [Validators.required]),
+      etablissement: new FormControl(item.etablissement, [Validators.required]),
     });
   }
   OnSubmit() {
@@ -68,6 +77,6 @@ export class MemberFormComponent implements OnInit {
       ...member1,
       createdDate: member1.createdDate ?? new Date().toISOString().toString()
     }
-    this.MS.SaveEtudiant(member1).subscribe(() => { this.router.navigate(['/members']) })
+    this.type== 'teacher' ? this.MS.SaveEnseignant(member1).subscribe(() => { this.router.navigate(['/teacher']) }) : this.MS.SaveEtudiant(member1).subscribe(() => { this.router.navigate(['/student']) });
   }
 }

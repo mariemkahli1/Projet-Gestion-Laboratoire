@@ -19,7 +19,7 @@ export class EventFormComponent implements OnInit {
     const idcourant = this.activatedRoute.snapshot.params["id"] ;
     if(!!idcourant){
       this.ES.getEventByid(idcourant).subscribe((item)=>{
-        this.changeState(item).then(()=>this.initForm2(item))
+        this.changeState(item).then(()=>this.initForm2(item) )
       })
     }
     else{

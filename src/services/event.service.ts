@@ -29,7 +29,7 @@ export class EventService {
   getEvents():Observable<Event[]>{
     return this.httpClient.get<Event[]>("http://localhost:8100/EVENEMENT-SERVICE/evenement").pipe(
       tap((events: Event[]) => {
-        this.tab.push(...events);
+        this.tab=events;
       })
     );
 

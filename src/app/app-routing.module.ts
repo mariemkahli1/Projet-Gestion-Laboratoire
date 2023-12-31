@@ -11,6 +11,8 @@ import { EventFormComponent } from './components/event-form/event-form.component
 import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
 import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
+import { EnseignantComponent } from './components/enseignant/enseignant.component';
+import { EtudiantComponent } from './components/etudiant/etudiant.component';
 
 const routes: Routes = [
   
@@ -32,6 +34,42 @@ const routes: Routes = [
       path:'create/teacher',
       pathMatch:'full',
       component: EnseignantFormComponent
+    },
+    {
+      path:'edit/:id',
+      pathMatch:'full',
+      component: MemberFormComponent
+    },]
+  },
+  {
+    path:'teacher',
+    children:[{
+      path:'',
+      pathMatch:'full',
+      component: EnseignantComponent
+    },
+    {
+      path:'create',
+      pathMatch:'full',
+      component: MemberFormComponent
+    },
+    {
+      path:'edit/:id',
+      pathMatch:'full',
+      component: MemberFormComponent
+    },]
+  },
+  {
+    path:'student',
+    children:[{
+      path:'',
+      pathMatch:'full',
+      component: EtudiantComponent
+    },
+    {
+      path:'create',
+      pathMatch:'full',
+      component: MemberFormComponent
     },
     {
       path:'edit/:id',
@@ -89,7 +127,7 @@ const routes: Routes = [
   {
     path:'**',
     pathMatch:'full',
-    redirectTo:'members',
+    redirectTo:'dashboard',
   },
 ];
 

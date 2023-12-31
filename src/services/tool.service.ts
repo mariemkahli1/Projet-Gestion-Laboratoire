@@ -25,7 +25,7 @@ export class ToolService {
   getTools():Observable<Tool[]>{
     return this.httpClient.get<Tool[]>("http://localhost:8100/OUTIL-SERVICE/outil").pipe(
       tap((tools: Tool[]) => {
-        this.tab.push(...tools);
+        this.tab=tools;
       })
     );
   }

@@ -10,19 +10,21 @@ import{ChartDataset , ChartOptions} from 'chart.js'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  nb_Members:number=0;
+  nb_Students:number=0;
+  nb_Teachers:number=0;
   nb_Tools:number=0;
   nb_Events:number=0;
   nb_Articles:number=0;
   constructor(private Ms:MemberService,private Ts:ToolService,private Es:EventService,private As:ArticleService){
-    this.nb_Members=this.Ms.tab.length;
+    this.nb_Students=this.Ms.students.length;
+    this.nb_Teachers=this.Ms.teachers.length;
     this.nb_Tools=this.Ts.tab.length;
     this.nb_Events=this.Es.tab.length;
     this.nb_Articles=this.As.tab.length;
-    for (let i = 0; i < this.nb_Members; i++) {
-      this.chartLabels.push(this.Ms.tab[i].nom)
+    // for (let i = 0; i < this.nb_Members; i++) {
+    //   this.chartLabels.push(this.Ms.tab[i].nom)
       
-    }
+    // }
 
   }
   chartData: ChartDataset[] = [

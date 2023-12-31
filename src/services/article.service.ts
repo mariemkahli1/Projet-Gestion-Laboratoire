@@ -25,7 +25,7 @@ export class ArticleService {
   getArticles():Observable<Article[]>{
     return this.httpClient.get<Article[]>("http://localhost:8100/PUBLICATION-SERVICE/publication").pipe(
       tap((articles: Article[]) => {
-        this.tab.push(...articles);
+        this.tab=articles;
       })
     );
   }

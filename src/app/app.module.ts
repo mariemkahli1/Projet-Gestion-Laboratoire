@@ -36,6 +36,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {  NgChartsModule } from 'ng2-charts';
 import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
+import { EnseignantComponent } from './components/enseignant/enseignant.component';
+import { EtudiantComponent } from './components/etudiant/etudiant.component';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import { ArticleFormComponent } from './components/article-form/article-form.com
     ToolsCreateComponent,
     EnseignantFormComponent,
     ArticleFormComponent,
+    EnseignantComponent,
+    EtudiantComponent,
   ],
   imports: [
     NgChartsModule,
