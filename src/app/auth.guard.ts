@@ -16,7 +16,6 @@ export class authGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.getUserClaims().then(user => {
-      console.log("ggg");
       
       if (user) {
         console.log("authentifier");

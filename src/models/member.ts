@@ -1,3 +1,7 @@
+import { Article } from "./article";
+import { Event } from "./event";
+import { Tool } from "./tool";
+
 export interface Member {
     id:String,
     cin:String,
@@ -9,9 +13,9 @@ export interface Member {
     email:String,
     password:String,
     type?:string,
-    tab_pub:String[],
-    tab_event?:String[],
-    tab_outil?:String[],
+    pubs:Article[],
+    events?:Event[],
+    outils?:Tool[],
 
     //etudiant
     sujet?:String,

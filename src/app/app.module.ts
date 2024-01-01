@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MemberComponent } from './components/member/member.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { MemberFormComponent } from './components/member-form/member-form.component';
@@ -34,16 +33,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
 import {MatSelectModule} from '@angular/material/select';
 import {  NgChartsModule } from 'ng2-charts';
-import { EnseignantFormComponent } from './components/enseignant-form/enseignant-form.component';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
 import { EnseignantComponent } from './components/enseignant/enseignant.component';
 import { EtudiantComponent } from './components/etudiant/etudiant.component';
+import { FullMemberComponent } from './components/full-member/full-member.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MemberComponent,
     MemberFormComponent,
     ConfirmDialogComponent,
     DashboardComponent,
@@ -54,10 +52,10 @@ import { EtudiantComponent } from './components/etudiant/etudiant.component';
     LoginComponent,
     EventFormComponent,
     ToolsCreateComponent,
-    EnseignantFormComponent,
     ArticleFormComponent,
     EnseignantComponent,
     EtudiantComponent,
+    FullMemberComponent,
   ],
   imports: [
     NgChartsModule,

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { GLOBAL } from 'src/app/app-config';
+import { Membre_Outil } from 'src/models/Membre_Outil';
 import { Member } from 'src/models/member';
 
 @Injectable({
@@ -15,6 +16,10 @@ export class MemberService {
     return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
       
   }
+  getFullMember(id:string): Observable<Member> {
+    return this.httpClient.get<Member>("http://localhost:8100/MEMBRE-SERVICE/fullmember/"+id)
+      
+  }
   getAllTeachers(): Observable<Member[]> {
     return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/enseignant")
     .pipe(
@@ -23,7 +28,7 @@ export class MemberService {
       })
     );
   }
-  getAllStudents(): Observable<Member[]> {
+    getAllStudents(): Observable<Member[]> {
     return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/etudiant")
     .pipe(
       tap((members: Member[]) => {
@@ -44,6 +49,10 @@ export class MemberService {
   deleteMemberByid(id:string):Observable<void>{
     return this.httpClient.delete<void>("http://localhost:8100/MEMBRE-SERVICE/"+id)
   }
+  affecterOutil(memberOutil:Membre_Outil):Observable<void>{
+    return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/outil" ,memberOutil) ;
+  }
+
   // getMembers():Observable<Member[]>{
   //   return this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/membre")
   // }
