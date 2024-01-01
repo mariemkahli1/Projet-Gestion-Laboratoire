@@ -48,6 +48,8 @@
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
+            <button routerLink="consult/{{element.id}}"><mat-icon >view</mat-icon></button>
+
             <button routerLink="edit/{{element.id}}"><mat-icon >edit</mat-icon></button>
             <button (click)="deleteMember(element.id)"><mat-icon>delete</mat-icon></button>
         </td>

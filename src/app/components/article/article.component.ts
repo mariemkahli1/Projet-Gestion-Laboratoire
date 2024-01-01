@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Article } from 'src/models/article';
 import { ArticleService } from 'src/services/article.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-article',
@@ -15,6 +16,8 @@ export class ArticleComponent {
   //pointer sur le tableau du service 
   displayedColumns: string[] = ['id', 'titre', 'Date', 'type', 'sourcePdf','action'];
   dataSource!: Article[] ;
+  dataSource2 =new MatTableDataSource(this.dataSource);
+
 
   ngOnInit(): void {
     this.fetch()
@@ -22,6 +25,8 @@ export class ArticleComponent {
   fetch():void{
     this.AS.getArticles().subscribe((tab)=>{
       this.dataSource=tab
+      this.dataSource2 =new MatTableDataSource(this.dataSource);
+
     })
     console.log(this.dataSource)
   }
@@ -40,5 +45,9 @@ export class ArticleComponent {
     
 
   }
-  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
+    
+  }
 }

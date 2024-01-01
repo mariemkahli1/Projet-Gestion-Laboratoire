@@ -16,15 +16,21 @@ export class DashboardComponent {
   nb_Events:number=0;
   nb_Articles:number=0;
   constructor(private Ms:MemberService,private Ts:ToolService,private Es:EventService,private As:ArticleService){
-    this.nb_Students=this.Ms.students.length;
-    this.nb_Teachers=this.Ms.teachers.length;
-    this.nb_Tools=this.Ts.tab.length;
-    this.nb_Events=this.Es.tab.length;
-    this.nb_Articles=this.As.tab.length;
-    // for (let i = 0; i < this.nb_Members; i++) {
-    //   this.chartLabels.push(this.Ms.tab[i].nom)
-      
-    // }
+    this.As.getArticles().subscribe((tab)=>{
+      this.nb_Articles=tab.length;
+    })
+    this.Ms.getAllStudents().subscribe((tab)=>{
+      this.nb_Students=tab.length;
+    })
+    this.Ms.getAllTeachers().subscribe((tab)=>{
+      this.nb_Teachers=tab.length;
+    })
+    this.Ts.getTools().subscribe((tab)=>{
+      this.nb_Tools=tab.length;
+    })
+    this.Es.getEvents().subscribe((tab)=>{
+      this.nb_Events=tab.length;
+    })
 
   }
   chartData: ChartDataset[] = [
