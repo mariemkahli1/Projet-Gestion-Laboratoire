@@ -15,7 +15,7 @@ export class LoginComponent {
     })
   }
   successRedirect():void {
-    this.ngZone.run(()=>this.router.navigate(['/members']))
+    this.ngZone.run(()=>this.router.navigate(['/dashboard']))
     
   }
 

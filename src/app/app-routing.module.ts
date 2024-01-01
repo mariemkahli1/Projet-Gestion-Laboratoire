@@ -13,121 +13,142 @@ import { ToolsCreateComponent } from './components/tools-create/tools-create.com
 import { ArticleFormComponent } from './components/article-form/article-form.component';
 import { EnseignantComponent } from './components/enseignant/enseignant.component';
 import { EtudiantComponent } from './components/etudiant/etudiant.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
-  
   {
-    path:'members',
-    //pathMatch:'full',
-    //component: MemberComponent,
-    children:[{
-      path:'',
-      pathMatch:'full',
-      component: MemberComponent
-    },
-    {
-      path:'create/student',
-      pathMatch:'full',
-      component: MemberFormComponent
-    },
-    {
-      path:'create/teacher',
-      pathMatch:'full',
-      component: EnseignantFormComponent
-    },
-    {
-      path:'edit/:id',
-      pathMatch:'full',
-      component: MemberFormComponent
-    },]
-  },
-  {
-    path:'teacher',
-    children:[{
-      path:'',
-      pathMatch:'full',
-      component: EnseignantComponent
-    },
-    {
-      path:'create',
-      pathMatch:'full',
-      component: MemberFormComponent
-    },
-    {
-      path:'edit/:id',
-      pathMatch:'full',
-      component: MemberFormComponent
-    },]
-  },
-  {
-    path:'student',
-    children:[{
-      path:'',
-      pathMatch:'full',
-      component: EtudiantComponent
-    },
-    {
-      path:'create',
-      pathMatch:'full',
-      component: MemberFormComponent
-    },
-    {
-      path:'edit/:id',
-      pathMatch:'full',
-      component: MemberFormComponent
-    },]
-  },
-  {
-    path:'',
-    pathMatch:'full',
+    path: '',
+    pathMatch: 'full',
     component: LoginComponent
   },
 
   {
-    path:'event/create',
-    pathMatch:'full',
+    path: 'members',
+    canActivate: [authGuard],
+
+    children: [{
+      path: '',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+
+      component: MemberComponent
+    },
+    {
+      path: 'create/student',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: MemberFormComponent
+    },
+    {
+      path: 'create/teacher',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: EnseignantFormComponent
+    },
+    {
+      path: 'edit/:id',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: MemberFormComponent
+    },]
+  },
+  {
+    path: 'teacher',
+    children: [{
+      path: '',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: EnseignantComponent
+    },
+    {
+      path: 'create',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: MemberFormComponent
+    },
+    {
+      path: 'edit/:id',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: MemberFormComponent
+    },]
+  },
+  {
+    path: 'student',
+    children: [{
+      path: '',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: EtudiantComponent
+    },
+    {
+      path: 'create',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: MemberFormComponent
+    },
+    {
+      path: 'edit/:id',
+      pathMatch: 'full',
+      canActivate: [authGuard],
+      component: MemberFormComponent
+    },]
+  },
+
+
+  {
+    path: 'event/create',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: EventFormComponent
   },
   {
-    path:'event/edit/:id',
-    pathMatch:'full',
+    path: 'event/edit/:id',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: EventFormComponent
   },
   {
-    path:'dashboard',
-    pathMatch:'full',
+    path: 'dashboard',
+    canActivate: [authGuard],
+    pathMatch: 'full',
     component: DashboardComponent
   },
   {
-    path:'tools',
-    pathMatch:'full',
+    path: 'tools',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: ToolComponent
   },
   {
-    path:'articles',
-    pathMatch:'full',
+    path: 'articles',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: ArticleComponent
   },
   {
-    path:'article/create',
-    pathMatch:'full',
+    path: 'article/create',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: ArticleFormComponent
   },
   {
-    path:'article/edit/:id',
-    pathMatch:'full',
+    path: 'article/edit/:id',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: ArticleFormComponent
   },
   {
-    path:'events',
-    pathMatch:'full',
+    path: 'events',
+    pathMatch: 'full',
+    canActivate: [authGuard],
     component: EventComponent
   },
-  
+
   {
-    path:'**',
-    pathMatch:'full',
-    redirectTo:'dashboard',
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'dashboard',
   },
 ];
 
