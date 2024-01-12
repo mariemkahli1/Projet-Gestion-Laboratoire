@@ -1,7 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="end center" >
     <button mat-raised-button routerLink="/event/create">Create new</button>
 </div>
-
+<div fxLayout="row" fxLayoutAlign="end center" >
+    <button mat-raised-button (click)="OpenDialog()">Affect to</button>
+</div>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="id">

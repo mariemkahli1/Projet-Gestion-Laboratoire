@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class EtudiantComponent {
   constructor(private MS:MemberService,private router:Router,private dialog:MatDialog){}
   //pointer sur le tableau du service 
-  displayedColumns: string[] = ['id', 'cin', 'name', 'dateInscription', 'sujet', 'encadrant','action'];
+  displayedColumns: string[] = ['id', 'cin', 'name', 'dateInscription', 'sujet', 'action'];
   dataSource!: Member[] ;
   dataSource2 =new MatTableDataSource(this.dataSource);
 

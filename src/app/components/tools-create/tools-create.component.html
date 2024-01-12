@@ -20,14 +20,6 @@
              placeholder="Source"
              formControlName="source">
   </mat-form-field>
-  <mat-form-field>
-      <mat-label>Createur</mat-label>
-      <mat-select formControlName="Createur">
-          <mat-option *ngFor="let createur of createurs" [value]="createur">
-              {{ createur.nom }}
-          </mat-option>
-      </mat-select>
-  </mat-form-field>
 
 </mat-dialog-content>
 

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { GLOBAL } from 'src/app/app-config';
+import { Membre_Article } from 'src/models/Membre_Article';
+import { Membre_Event } from 'src/models/Membre_Event';
 import { Membre_Outil } from 'src/models/Membre_Outil';
 import { Member } from 'src/models/member';
 
@@ -51,6 +53,12 @@ export class MemberService {
   }
   affecterOutil(memberOutil:Membre_Outil):Observable<void>{
     return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/outil" ,memberOutil) ;
+  }
+  affecterArticle(memberArticle:Membre_Article):Observable<void>{
+    return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/publication" ,memberArticle) ;
+  }
+  affecterEvent(memberEvent:Membre_Event):Observable<void>{
+    return this.httpClient.post<void>("http://localhost:8100/MEMBRE-SERVICE/evenement" ,memberEvent) ;
   }
 
   // getMembers():Observable<Member[]>{

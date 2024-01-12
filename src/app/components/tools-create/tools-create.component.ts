@@ -9,7 +9,7 @@ import { Member } from 'src/models/member';
   styleUrls: ['./tools-create.component.css']
 })
 export class ToolsCreateComponent  implements OnInit{
-  constructor(private MS:MemberService,private dialogRef: MatDialogRef<ToolsCreateComponent>,private fb: FormBuilder){}
+  constructor(private dialogRef: MatDialogRef<ToolsCreateComponent>,private fb: FormBuilder){}
   form!:FormGroup
   
   createurs !: Member[];
@@ -17,12 +17,7 @@ export class ToolsCreateComponent  implements OnInit{
     this.form = this.fb.group({
       date: new FormControl<Date | null>(null),
       source: new FormControl(null,[]),
-      Createur: new FormControl(null,[])
 
-    })
-    this.MS.getAllTeachers().subscribe((tab)=>{
-      console.log(tab)
-      this.createurs=tab  
     })
   }
   save():void{this.dialogRef.close(this.form.value)}

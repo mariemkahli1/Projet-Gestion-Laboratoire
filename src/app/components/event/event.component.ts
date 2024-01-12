@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { EventService } from 'src/services/event.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Event} from 'src/models/event'
+import { AffectEventToMemberComponent } from '../affect-event-to-member/affect-event-to-member.component';
+import { MemberService } from 'src/services/member.service';
 
 @Component({
   selector: 'app-event',
@@ -13,7 +15,7 @@ import { Event} from 'src/models/event'
 })
 export class EventComponent implements OnInit{
   
-  constructor(private ES:EventService,private router:Router,private dialog:MatDialog){}
+  constructor(private ES:EventService,private MS:MemberService,private router:Router,private dialog:MatDialog){}
   //pointer sur le tableau du service 
   displayedColumns: string[] = ['id', 'titre', 'DateDebut', 'DateFin', 'lieu','action'];
   dataSource!: Event[] ;
@@ -39,8 +41,30 @@ export class EventComponent implements OnInit{
         this.ES.deleteEventByid(id).subscribe(()=>{this.fetch()})
       }
     }); 
-    
-
   }
+  OpenDialog(id? :string ):void{
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef= this.dialog.open(AffectEventToMemberComponent, dialogConfig);
+  
+  dialogRef.afterClosed().subscribe(data => {
+    
+    if (data) {
+
+        const member_event={
+          event_id:String(data.event.id),
+          participant_id:String(data.createur.id),
+        }
+        console.log(member_event);
+        
+        this.MS.affecterEvent(member_event).subscribe(()=>{this.fetch()})
+      }
+    
+    
+  }); 
+}
   
 }

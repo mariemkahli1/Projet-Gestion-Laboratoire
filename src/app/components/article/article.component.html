@@ -1,7 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="end center" >
     <button mat-raised-button routerLink="/article/create">Create new</button>
 </div>
-
+<div fxLayout="row" fxLayoutAlign="end center" >
+    <button mat-raised-button (click)="OpenDialog()">Affect to</button>
+</div>
 <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>

@@ -6,6 +6,7 @@ import { Tool } from 'src/models/tool';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MemberService } from 'src/services/member.service';
+import { AffectToolToMemberComponent } from '../affect-tool-to-member/affect-tool-to-member.component';
 
 @Component({
   selector: 'app-tool',
@@ -14,7 +15,7 @@ import { MemberService } from 'src/services/member.service';
 })
 export class ToolComponent implements OnInit {
   constructor(private TS:ToolService, private MS:MemberService,private dialog: MatDialog) {}
-  displayedColumns: string[] = ['id', 'Date', 'Source', 'Createur','action'];
+  displayedColumns: string[] = ['id', 'Date', 'Source','action'];
   dataSource!: Tool[] ;
   dataSource2 =new MatTableDataSource(this.dataSource);
 
@@ -46,23 +47,35 @@ export class ToolComponent implements OnInit {
         id:id,
         ...data
       }
-      console.log(data.Createur.id);
       
       this.TS.UpdateTool(outil).subscribe(()=>{this.fetch()})
-
-      //ajout dans le tableau outilMember
-      if (!!id) {  
-        const member_outil={
-          outil_id:String(id),
-          membre_id:String(data.Createur.id),
-        }
-        console.log(member_outil);
-        
-        this.MS.affecterOutil(member_outil).subscribe(()=>{this.fetch()})
-      }
       
     }
   }); 
+}
+OpenDialog2(id? :string ):void{
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+
+  const dialogRef= this.dialog.open(AffectToolToMemberComponent, dialogConfig);
+
+dialogRef.afterClosed().subscribe(data => {
+  
+  if (data) {
+
+      const member_tool={
+        outil_id:String(data.tool.id),
+        membre_id:String(data.createur.id),
+      }
+      console.log(member_tool);
+      
+      this.MS.affecterOutil(member_tool).subscribe(()=>{this.fetch()})
+    }
+  
+  
+}); 
 }
 deleteOutil(id:string):void{
   //open the dialog component

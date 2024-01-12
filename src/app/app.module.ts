@@ -37,6 +37,9 @@ import { ArticleFormComponent } from './components/article-form/article-form.com
 import { EnseignantComponent } from './components/enseignant/enseignant.component';
 import { EtudiantComponent } from './components/etudiant/etudiant.component';
 import { FullMemberComponent } from './components/full-member/full-member.component';
+import { AffectArticleToMemberComponent } from './components/affect-article-to-member/affect-article-to-member.component';
+import { AffectEventToMemberComponent } from './components/affect-event-to-member/affect-event-to-member.component';
+import { AffectToolToMemberComponent } from './components/affect-tool-to-member/affect-tool-to-member.component';
 
 
 @NgModule({
@@ -56,6 +59,9 @@ import { FullMemberComponent } from './components/full-member/full-member.compon
     EnseignantComponent,
     EtudiantComponent,
     FullMemberComponent,
+    AffectArticleToMemberComponent,
+    AffectEventToMemberComponent,
+    AffectToolToMemberComponent,
   ],
   imports: [
     NgChartsModule,
