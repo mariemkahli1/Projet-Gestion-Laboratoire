@@ -1,9 +1,11 @@
-<mat-card [className]="">
-  <mat-card-content>
-    <div style="text-align: center;">
-      <mat-icon>account_circle</mat-icon>
+<div fxLayout="column" fxLayoutAlign="center center" style="width: 100%; height: 75vh;">
+  <mat-card fxLayout="column" fxLayoutAlign="center center" style="padding: 2%;">
+    <div fxLayoutAlign="center">
+      <mat-icon style="font-size: 48px;width: 100%; height: 100%;">account_circle</mat-icon>
     </div>
-    <h2>Connexion Professionnelle</h2>
-    <button mat-raised-button color="primary" (click)="tryGoogleLogin()">Sign in with Google</button>
-  </mat-card-content>
-</mat-card>
+    <mat-card-content>
+      <h2 class="mat-display-1" fxLayoutAlign="center">Sign In </h2>
+      <button mat-raised-button color="primary" (click)="tryGoogleLogin()" class="mat-body-2">Sign in with Google</button>
+    </mat-card-content>
+  </mat-card>
+</div>

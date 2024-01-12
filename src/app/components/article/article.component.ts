@@ -16,7 +16,7 @@ import { MemberService } from 'src/services/member.service';
 export class ArticleComponent {
   constructor(private AS:ArticleService,private MS:MemberService,private router:Router,private dialog:MatDialog){}
   //pointer sur le tableau du service 
-  displayedColumns: string[] = ['id', 'titre', 'Date', 'type', 'sourcePdf','action'];
+  displayedColumns: string[] = ['id', 'titre', 'Date', 'type', 'action'];
   dataSource!: Article[] ;
   dataSource2 =new MatTableDataSource(this.dataSource);
 

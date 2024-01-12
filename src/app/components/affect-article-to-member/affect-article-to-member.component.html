@@ -1,28 +1,33 @@
-<p>affect-article-to-member works!</p>
-<mat-dialog-content [formGroup]="form">
-  
-    <mat-form-field>
-        <mat-label>Member</mat-label>
-        <mat-select formControlName="createur">
-            <mat-option *ngFor="let createur of dataMembers" [value]="createur">
-                {{ createur.nom }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+<div style="padding: 20px 0;">
 
-  <mat-form-field>
-      <mat-label>Article</mat-label>
-      <mat-select formControlName="article">
-          <mat-option *ngFor="let article of dataArticles" [value]="article">
-              {{ article.titre }}
-          </mat-option>
-      </mat-select>
-  </mat-form-field>
+    <div fxLayoutAlign="center">
+        <h2>Affect Article to member</h2>
+    </div>
+    <mat-dialog-content [formGroup]="form" fxLayout="column">
 
-</mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Member</mat-label>
+            <mat-select formControlName="createur">
+                <mat-option *ngFor="let createur of dataMembers" [value]="createur">
+                    {{ createur.nom }} {{ createur.prenom }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Article</mat-label>
+            <mat-select formControlName="article">
+                <mat-option *ngFor="let article of dataArticles" [value]="article">
+                    {{ article.titre }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </mat-dialog-content>
 
 
-<mat-dialog-actions>
-    <button class="mat-raised-button"(click)="close()">Close</button>
-    <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
-</mat-dialog-actions>
+    <mat-dialog-actions>
+        <button mat-button class="mat-raised-button" (click)="close()">Close</button>
+        <button mat-button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+    </mat-dialog-actions>
+</div>

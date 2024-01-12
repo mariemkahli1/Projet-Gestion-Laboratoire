@@ -12,7 +12,19 @@ import { MemberService } from 'src/services/member.service';
 })
 export class MemberFormComponent implements OnInit {
   constructor(private MS: MemberService, private router: Router, private activatedRoute: ActivatedRoute) { }
-  form!: FormGroup;
+  form: FormGroup = new FormGroup({
+    cin: new FormControl(null, [Validators.required]),
+    nom: new FormControl(null, [Validators.required]),
+    prenom: new FormControl(null, [Validators.required]),
+    dateNaissance: new FormControl(null, [Validators.required]),
+    cv: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required , Validators.email]),
+    password: new FormControl("********", [Validators.required]),
+    sujet: new FormControl(null, [Validators.required]),
+    dateInscription: new FormControl(null, [Validators.required]),
+    diplome:  new FormControl(null, [Validators.required]),
+    grade: new FormControl(null, [Validators.required]),
+    etablissement: new FormControl(null, [Validators.required]),})
   memberGlobal!: Member;
   type!:String ;
 

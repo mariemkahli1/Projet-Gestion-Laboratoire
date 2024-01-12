@@ -71,13 +71,18 @@ export class MemberService {
   //   }
   //   return new Observable(observer=>observer.next(this.tabpub))
   // }
-  getNbStudByTeacher():Observable<number[]>{
+  async getNbStudByTeacher(){
+    var teacher=await this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/enseignant").toPromise();
+    var student=await this.httpClient.get<Member[]>("http://localhost:8100/MEMBRE-SERVICE/etudiant").toPromise()
     var tabStudent:number[]=[]
     var count =0
-    tabStudent.push(count,this.teachers.length-count)
-    tabStudent.push(count,this.students.length-count)
-    
-    return new Observable(observer=>observer.next(tabStudent))
+    if(teacher){
+      tabStudent.push(teacher.length-count)
+    }
+    if(student){
+      tabStudent.push(student.length-count)
+    }
+    return tabStudent
   }
 
   constructor(private httpClient:HttpClient) { }

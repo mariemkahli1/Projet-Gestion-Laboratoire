@@ -11,7 +11,12 @@ import { Event } from 'src/models/event';
 })
 export class EventFormComponent implements OnInit {
   constructor(private ES: EventService,private router:Router,private activatedRoute:ActivatedRoute) { }
-  form!: FormGroup;
+  form : FormGroup = new FormGroup({
+    titre: new FormControl(null, [Validators.required]),
+    dateDebut: new FormControl<Date | null>(null),
+    dateFin: new FormControl<Date | null>(null),
+    lieu: new FormControl(null, [Validators.required]),
+  });
   eventGlobal!:Event ;
   
   ngOnInit():void {

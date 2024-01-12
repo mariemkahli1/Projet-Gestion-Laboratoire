@@ -50,21 +50,20 @@ export class EventComponent implements OnInit{
 
     const dialogRef= this.dialog.open(AffectEventToMemberComponent, dialogConfig);
   
-  dialogRef.afterClosed().subscribe(data => {
-    
-    if (data) {
-
-        const member_event={
-          event_id:String(data.event.id),
-          participant_id:String(data.createur.id),
-        }
-        console.log(member_event);
+      dialogRef.afterClosed().subscribe(data => {
         
-        this.MS.affecterEvent(member_event).subscribe(()=>{this.fetch()})
-      }
-    
-    
-  }); 
-}
-  
+        if (data) {
+
+            const member_event={
+              event_id:String(data.event.id),
+              participant_id:String(data.createur.id),
+            }
+            console.log(member_event);
+            
+            this.MS.affecterEvent(member_event).subscribe(()=>{this.fetch()})
+          }
+        
+        
+      }); 
+    }
 }

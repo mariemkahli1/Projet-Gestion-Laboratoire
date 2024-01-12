@@ -11,7 +11,12 @@ import { ArticleService } from 'src/services/article.service';
 })
 export class ArticleFormComponent implements OnInit {
   constructor(private AS: ArticleService, private router: Router, private activatedRoute: ActivatedRoute) { }
-  form!: FormGroup;
+  form: FormGroup= new FormGroup({
+    titre: new FormControl(null, [Validators.required]),
+    date: new FormControl<Date | null>(null),
+    type: new FormControl(null, [Validators.required]),
+    sourcePdf: new FormControl(null, [Validators.required]),
+  });
   articleGlobal!: Article;
 
   ngOnInit(): void {

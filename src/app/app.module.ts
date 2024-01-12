@@ -40,7 +40,7 @@ import { FullMemberComponent } from './components/full-member/full-member.compon
 import { AffectArticleToMemberComponent } from './components/affect-article-to-member/affect-article-to-member.component';
 import { AffectEventToMemberComponent } from './components/affect-event-to-member/affect-event-to-member.component';
 import { AffectToolToMemberComponent } from './components/affect-tool-to-member/affect-tool-to-member.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -64,6 +64,7 @@ import { AffectToolToMemberComponent } from './components/affect-tool-to-member/
     AffectToolToMemberComponent,
   ],
   imports: [
+    MatExpansionModule,
     NgChartsModule,
     MatSelectModule,
     MatNativeDateModule,
