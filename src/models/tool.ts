@@ -1,6 +1,5 @@
 export interface Tool {
-    id:String,
-    date:String,
+    id:number,
+    date:Date,
     source:String,
-    Createur:String,
 }

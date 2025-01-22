@@ -63,7 +63,7 @@ export class ArticleComponent {
         }
         console.log(member_article);
         
-        this.MS.affecterArticle(member_article).subscribe(()=>{this.fetch()})
+        this.MS.assignPublication(member_article).subscribe(()=>{this.fetch()})
       }
     
     

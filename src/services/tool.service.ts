@@ -1,31 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { GLOBAL } from 'src/app/app-config';
 import { Tool } from 'src/models/tool';
 @Injectable({
   providedIn: 'root'
 })
 export class ToolService {
-  constructor(private httpClient:HttpClient) { }
-  tab:Tool[]=[];
+  private readonly apiUrl = 'http://localhost:9000/OUTILSERVICE/outils';
+  tab: Tool[] = [];
 
-  SaveTool(tool:Tool):Observable<void>{
-    return this.httpClient.post<void>("http://localhost:8100/OUTIL-SERVICE" ,tool) ;
+  constructor(private httpClient: HttpClient) {}
+
+  // Ajouter un nouvel outil
+  saveTool(tool: Tool): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl, tool);
   }
-  UpdateTool(tool:Tool):Observable<void>{
-    return this.httpClient.put<void>("http://localhost:8100/OUTIL-SERVICE/outil/update" ,tool) ;
+
+  // Mettre à jour un outil existant
+  updateTool(id: string, tool: Tool): Observable<void> {
+    return this.httpClient.put<void>(`${this.apiUrl}/${id}`, tool);
   }
-  getToolByid(id:string):Observable<Tool>{
-    return this.httpClient.get<Tool>("http://localhost:8100/OUTIL-SERVICE/outil/"+id)
+
+  // Récupérer un outil par son ID
+  getToolById(id: string): Observable<Tool> {
+    return this.httpClient.get<Tool>(`${this.apiUrl}/${id}`);
   }
-  deleteToolByid(id:string):Observable<void>{
-    return this.httpClient.delete<void>("http://localhost:8100/OUTIL-SERVICE/"+id)
+
+  // Supprimer un outil par son ID
+  deleteToolById(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
   }
-  getTools():Observable<Tool[]>{
-    return this.httpClient.get<Tool[]>("http://localhost:8100/OUTIL-SERVICE/outil").pipe(
+
+  // Récupérer la liste de tous les outils
+  getTools(): Observable<Tool[]> {
+    return this.httpClient.get<Tool[]>(this.apiUrl).pipe(
       tap((tools: Tool[]) => {
-        this.tab=tools;
+        this.tab = tools;
+      }),
+      catchError(error => {
+      console.error('Error fetching tools list:', error);
+      return throwError(() => new Error('Error fetching tools list'));
       })
     );
   }

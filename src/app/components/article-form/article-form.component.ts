@@ -20,61 +20,47 @@ export class ArticleFormComponent implements OnInit {
   articleGlobal!: Article;
 
   ngOnInit(): void {
-    //recupiration id
-    const idcourant = this.activatedRoute.snapshot.params["id"];
-    if (!!idcourant) {
-      this.AS.getArticleByid(idcourant).subscribe((item) => {
-
-        this.articleGlobal = item
-        this.initForm2(this.articleGlobal)
-      })
+    const currentId = this.activatedRoute.snapshot.params['id'];
+    if (currentId) {
+      this.AS.getArticleByid(currentId).subscribe({
+        next: (article) => {
+          this.articleGlobal = article;
+          this.initForm(article);
+        },
+        error: (err) => console.error('Error fetching article:', err),
+      });
+    } else {
+      this.initForm();
     }
-    else {
-      this.initForm()
-    }
-
   }
-  initForm() {
+
+  initForm(article?: Article): void {
     this.form = new FormGroup({
-      titre: new FormControl(null, [Validators.required]),
-      date: new FormControl<Date | null>(null),
-      type: new FormControl(null, [Validators.required]),
-      sourcePdf: new FormControl(null, [Validators.required]),
+      titre: new FormControl(article?.titre || null, [Validators.required]),
+      date: new FormControl(article?.date || null, [Validators.required]),
+      type: new FormControl(article?.type || null, [Validators.required]),
+      sourcePdf: new FormControl(article?.sourcePdf || null, [Validators.required]),
     });
   }
-  initForm2(item: Article): void {
-    this.form = new FormGroup({
-      titre: new FormControl(item.titre, [Validators.required]),
-      date: new FormControl(item.date, [Validators.required]),
-      type: new FormControl(item.type, [Validators.required]),
-      sourcePdf: new FormControl(item.sourcePdf, [Validators.required]),
-    });
-  }
-  OnSubmit() {
-    const idcourant = this.activatedRoute.snapshot.params["id"];
-    
-    console.log(idcourant);
-    console.log(!!idcourant);
 
-    if (!!idcourant) {
-      const article = {
-        id : idcourant,
-        ...this.form.value,
-  
-      }
-      console.log("update", article);
-      
-      this.AS.UpdateArticle(article).subscribe(() => { this.router.navigate(['/articles']) })
-    }
-    else {
-      const article = {
-        ...this.form.value,
-  
-      }
-      console.log("save");
-      
-      this.AS.SaveArticle(article).subscribe(() => { this.router.navigate(['/articles']) })
-    }
+  onSubmit(): void {
+    const currentId = this.activatedRoute.snapshot.params['id'];
+    const articleData = { ...this.articleGlobal, ...this.form.value };
 
+    if (currentId) {
+      this.AS
+        .UpdateArticle(currentId, articleData)
+        .subscribe({
+          next: () => this.router.navigate(['/articles']),
+          error: (err) => console.error('Error updating article:', err),
+        });
+    } else {
+      this.AS
+        .SaveArticle(articleData)
+        .subscribe({
+          next: () => this.router.navigate(['/articles']),
+          error: (err) => console.error('Error saving article:', err),
+        });
+    }
   }
 }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { EventService } from 'src/services/event.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Event} from 'src/models/event'
-import { AffectEventToMemberComponent } from '../affect-event-to-member/affect-event-to-member.component';
+
 import { MemberService } from 'src/services/member.service';
 
 @Component({
@@ -16,54 +16,55 @@ import { MemberService } from 'src/services/member.service';
 export class EventComponent implements OnInit{
   
   constructor(private ES:EventService,private MS:MemberService,private router:Router,private dialog:MatDialog){}
-  //pointer sur le tableau du service 
-  displayedColumns: string[] = ['id', 'titre', 'DateDebut', 'DateFin', 'lieu','action'];
-  dataSource!: Event[] ;
+  // Define displayed columns for the table
+  displayedColumns: string[] = ['id', 'titre', 'DateDebut', 'DateFin', 'description', 'action'];
+  dataSource: Event[] = []; // Initialize dataSource as an empty array
+
+  
 
   ngOnInit(): void {
-    this.fetch()
+    this.fetch(); // Fetch data when the component initializes
   }
-  fetch():void{
-    this.ES.getEvents().subscribe((tab)=>{
-      this.dataSource=tab
-    })
-    console.log(this.dataSource)
+
+  // Fetch events from the service
+  fetch(): void {
+    this.ES.getEvents().subscribe({
+      next: (events) => {
+        this.dataSource = events; // Update the dataSource with the fetched events
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error); // Handle errors
+      }
+    });
   }
-  deleteEvent(id:string):void{
-    //open the dialog component
-    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+
+  // Delete an event by ID
+  deleteEvent(id: string): void {
+    // Open the confirmation dialog
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       height: '200px',
       width: '300px',
     });
-    // wait for the result of afterclosed
-    dialogRef.afterClosed().subscribe(result => {
+
+    // Wait for the result of the dialog
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.ES.deleteEventByid(id).subscribe(()=>{this.fetch()})
-      }
-    }); 
-  }
-  OpenDialog(id? :string ):void{
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef= this.dialog.open(AffectEventToMemberComponent, dialogConfig);
-  
-      dialogRef.afterClosed().subscribe(data => {
-        
-        if (data) {
-
-            const member_event={
-              event_id:String(data.event.id),
-              participant_id:String(data.createur.id),
-            }
-            console.log(member_event);
-            
-            this.MS.affecterEvent(member_event).subscribe(()=>{this.fetch()})
+        // If the user confirms, delete the event
+        this.ES.deleteEventByid(id).subscribe({
+          next: () => {
+            this.fetch(); // Refresh the list after deletion
+          },
+          error: (error) => {
+            console.error('Error deleting event:', error); // Handle errors
           }
-        
-        
-      }); 
-    }
+        });
+      }
+    });
+  }
+ // applyFilter(event: Event) {
+   // const filterValue = (event.target as HTMLInputElement).value;
+    //this.dataSource.filter = filterValue.trim().toLowerCase();
+    
+  //}
+  
 }

@@ -10,67 +10,69 @@ import{ChartDataset , ChartOptions} from 'chart.js'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  nb_Students:number=0;
-  nb_Teachers:number=0;
-  nb_Tools:number=0;
-  nb_Events:number=0;
-  nb_Articles:number=0;
+ 
+  nb_member: number = 0;
+  nb_Tools: number = 0;
+  nb_Events: number = 0;
+  nb_Articles: number = 0;
   
-  chartLabels: String[] = [];
-  chartOptions: ChartOptions = {};
-  
-  Studenttab:number[]=[]
-  chartLabelsPie: String[] = ["Teacher","Student"];
-  chartLabelsBar: String[] = ["Teacher","Student","Tools","Events","Articles"];
-  chartDataPie!: ChartDataset[];
-  backgroundColor= [
-    'rgba(255, 99, 132)',
-    'rgba(255, 159, 64)',
-    'rgba(255, 205, 86)',
-    'rgba(75, 192, 192)',
-    'rgba(54, 162, 235)'
-  ]
-  chartDataBar: ChartDataset[]=[{label: 'Bar Chart',backgroundColor:this.backgroundColor,data: [this.nb_Teachers,this.nb_Students,this.nb_Tools,this.nb_Events,this.nb_Articles]}];
-  constructor(private Ms:MemberService,private Ts:ToolService,private Es:EventService,private As:ArticleService){}
+  chartData: ChartDataset[] = [
+    {
+      label: 'Distribution',
+      data: [0, 0, 0, 0], // Default data
+    }
+  ];
+  chartLabels: string[] = ['Member', 'Events', 'Tools', 'Articles'];
+  chartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+  };
+
+  constructor(
+    private Ms: MemberService,
+    private Ts: ToolService,
+    private Es: EventService,
+    private As: ArticleService
+  ) {}
+
   ngOnInit(): void {
-    this.As.getArticles().subscribe((tab)=>{
-      this.nb_Articles=tab.length;
-      this.updateBarChart()
-    })
-    this.Ms.getAllStudents().subscribe((tab)=>{
-      this.nb_Students=tab.length;
-      this.updateBarChart()
-    })
-    this.Ms.getAllTeachers().subscribe((tab)=>{
-      this.nb_Teachers=tab.length;
-      this.updateBarChart()
-    })
-    this.Ts.getTools().subscribe((tab)=>{
-      this.nb_Tools=tab.length;
-      this.updateBarChart()
-    })
-    this.Es.getEvents().subscribe((tab)=>{
-      this.nb_Events=tab.length;
-      this.updateBarChart()
+    this.As.getArticles().subscribe((tab) => {
+      this.nb_Articles = tab.length;
+      this.updatePieChart();
+    });
 
-    })
-    this.Ms.getNbStudByTeacher().then((x)=>{
-      this.chartDataPie = [
-        {
-          label: 'nombre',
-          data: x
-        }
-      ];
-      console.log(x);
-      
+    this.Ms.getMembers().subscribe((tab) => {
+      this.nb_member = tab.length;
+      this.updatePieChart();
+    });
 
-    })
+    this.Ts.getTools().subscribe((tab) => {
+      this.nb_Tools = tab.length;
+      this.updatePieChart();
+    });
 
-  }
-  updateBarChart(){
-    this.chartDataBar=[{label: 'Bar Chart',backgroundColor:this.backgroundColor,data: [this.nb_Teachers,this.nb_Students,this.nb_Tools,this.nb_Events,this.nb_Articles]}];
+    this.Es.getEvents().subscribe((tab) => {
+      this.nb_Events = tab.length;
+      this.updatePieChart();
+    });
   }
 
+  // Update the pie chart data when values change
+  updatePieChart(): void {
+    this.chartData = [
+      {
+        label: 'Distribution',
+        data: [this.nb_member, this.nb_Events, this.nb_Tools, this.nb_Articles],
+      },
+    ];
+  }
+
+  }
+ 
   
 
-}
+

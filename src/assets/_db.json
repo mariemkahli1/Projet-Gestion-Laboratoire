@@ -67,20 +67,20 @@
         {
             "id": "1",
             "date": "12/11/2022",
-            "source": "google",
-            "Createur": "majdi"
+            "source": "google"
+            
         },
         {
             "id": "2",
             "date": "12/11/2002",
-            "source": "google",
-            "Createur": "marwen"
+            "source": "google"
+            
         },
         {
             "id": "3",
             "date": "12/21/2022",
-            "source": "google",
-            "Createur": "youssef"
+            "source": "google"
+            
         }
     ]
 }

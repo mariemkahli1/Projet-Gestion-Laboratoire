@@ -1,0 +1,43 @@
+.container {
+    margin: 50px; /* Marges autour de la page */
+    display: flex;
+    gap: 50px; /* Espacement entre les boutons */
+}
+
+.button1 {
+      /* Alignement à droite */
+      position: absolute; /* Positionner de manière absolue */
+      right: 250px; /* Distance du bord droit de la page */
+      /* Ajuster la position verticale si nécessaire */
+    background-color:rgb(43, 43, 248);/* Couleur de fond du bouton */
+    color: white; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    border: none; /* Supprimer la bordure par défaut */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en main au survol */
+    transition: background-color 0.3s; /* Transition pour un effet au survol */
+}
+.button2 {
+    /* Alignement à droite */
+    position: absolute; /* Positionner de manière absolue */
+    right: 30px; /* Distance du bord droit de la page */
+    /* Ajuster la position verticale si nécessaire */
+  background-color:rgb(43, 43, 248);/* Couleur de fond du bouton */
+  color: white; /* Couleur du texte */
+  padding: 10px 20px; /* Espacement interne */
+  border: none; /* Supprimer la bordure par défaut */
+  border-radius: 5px; /* Coins arrondis */
+  cursor: pointer; /* Curseur en main au survol */
+  transition: background-color 0.3s; /* Transition pour un effet au survol */
+}
+
+
+mat-card-title {
+    font-size: 36px; /* Taille de police plus grande */
+    font-weight: 700; /* Texte en gras */
+    color: black; /* Couleur du texte */
+    position: absolute; /* Positionner de manière absolue */
+    left: 150px;
+  }
+
+  

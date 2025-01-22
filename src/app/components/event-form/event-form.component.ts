@@ -15,55 +15,58 @@ export class EventFormComponent implements OnInit {
     titre: new FormControl(null, [Validators.required]),
     dateDebut: new FormControl<Date | null>(null),
     dateFin: new FormControl<Date | null>(null),
-    lieu: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, [Validators.required]),
   });
   eventGlobal!:Event ;
   
-  ngOnInit():void {
-    //recupiration id
-    const idcourant = this.activatedRoute.snapshot.params["id"] ;
-    if(!!idcourant){
-      this.ES.getEventByid(idcourant).subscribe((item)=>{
-        this.changeState(item).then(()=>this.initForm2(item) )
-      })
+  ngOnInit(): void {
+    const currentId = this.activatedRoute.snapshot.params['id'];
+    if (currentId) {
+      this.ES.getEventByid(currentId).subscribe({
+        next: (event) => {
+          this.eventGlobal = event;
+          this.initFormWithValues(event);
+        },
+        error: (err) => console.error('Error fetching event:', err),
+      });
+    } else {
+      this.initEmptyForm();
     }
-    else{
-      this.initForm()
-    }
+  }
 
-  }
-  changeState=async(item:Event)=>{
-    this.eventGlobal=item;
-  }
-  initForm() {
+  initEmptyForm(): void {
     this.form = new FormGroup({
       titre: new FormControl(null, [Validators.required]),
-      dateDebut: new FormControl<Date | null>(null),
-      dateFin: new FormControl<Date | null>(null),
-      lieu: new FormControl(null, [Validators.required]),
+      dateDebut: new FormControl<Date | null>(null, [Validators.required]),
+      dateFin: new FormControl<Date | null>(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
     });
   }
-  initForm2(item:Event):void {
-    console.log(item)
+
+  initFormWithValues(event: Event): void {
     this.form = new FormGroup({
-      titre: new FormControl(item.titre, [Validators.required]),
-      dateDebut: new FormControl(item.dateDebut, [Validators.required]),
-      dateFin: new FormControl(item.dateFin, [Validators.required]),
-      lieu: new FormControl(item.lieu, [Validators.required]),
+      titre: new FormControl(event.titre, [Validators.required]),
+      dateDebut: new FormControl(event.dateDebut, [Validators.required]),
+      dateFin: new FormControl(event.dateFin, [Validators.required]),
+      description: new FormControl(event.description, [Validators.required]),
     });
   }
-  OnSubmit() {
-    const idcourant = this.activatedRoute.snapshot.params["id"];
-    const event = {
+
+  onSubmit(): void {
+    const currentId = this.activatedRoute.snapshot.params['id'];
+    const eventToSave = {
       ...this.eventGlobal,
       ...this.form.value,
-    }
-    if (!!idcourant) {
-      this.ES.UpdateEvent(event).subscribe(() => { this.router.navigate(['/events']) })
-    }
-    else { 
-      this.ES.SaveEvent(event).subscribe(() => { this.router.navigate(['/events']) })
-    }
+    };
 
+    if (currentId) {
+      this.ES
+        .UpdateEvent(currentId, eventToSave)
+        .subscribe(() => this.router.navigate(['/events']));
+    } else {
+      this.ES
+        .SaveEvent(eventToSave)
+        .subscribe(() => this.router.navigate(['/events']));
+    }
   }
 }

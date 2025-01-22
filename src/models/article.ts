@@ -4,4 +4,5 @@ export interface Article {
     date:String,
     type:String,
     sourcePdf:String,
+    lien:String;
 }

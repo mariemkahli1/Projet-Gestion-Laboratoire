@@ -1,31 +1,61 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Article } from 'src/models/article';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
-  constructor(private httpClient:HttpClient) { }
-  tab:Article[]=[];
+  private readonly apiUrl = 'http://localhost:9000/PUBLICATIONSERVICE/publications';
+  tab: Article[] = [];
 
-  SaveArticle(tool:Article):Observable<void>{
-    return this.httpClient.post<void>("http://localhost:8100/PUBLICATION-SERVICE" ,tool) ;
+  constructor(private httpClient: HttpClient) {}
+
+  SaveArticle(article: Article): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl, article).pipe(
+      catchError((error) => {
+        console.error('Error saving article:', error);
+        return throwError(() => new Error('Error saving article'));
+      })
+    );
   }
-  UpdateArticle(tool:Article):Observable<void>{
-    return this.httpClient.put<void>("http://localhost:8100/PUBLICATION-SERVICE/publication/update" ,tool) ;
+
+  UpdateArticle(id: string, article: Article): Observable<void> {
+    return this.httpClient.put<void>(`${this.apiUrl}/${id}`, article).pipe(
+      catchError((error) => {
+        console.error('Error updating article:', error);
+        return throwError(() => new Error('Error updating article'));
+      })
+    );
   }
-  getArticleByid(id:string):Observable<Article>{
-    return this.httpClient.get<Article>("http://localhost:8100/PUBLICATION-SERVICE/publication/"+id)
+
+  getArticleByid(id: string): Observable<Article> {
+    return this.httpClient.get<Article>(`${this.apiUrl}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching article by ID:', error);
+        return throwError(() => new Error('Error fetching article by ID'));
+      })
+    );
   }
-  deleteArticleByid(id:string):Observable<void>{
-    return this.httpClient.delete<void>("http://localhost:8100/PUBLICATION-SERVICE/"+id)
+
+  deleteArticleByid(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error deleting article:', error);
+        return throwError(() => new Error('Error deleting article'));
+      })
+    );
   }
-  getArticles():Observable<Article[]>{
-    return this.httpClient.get<Article[]>("http://localhost:8100/PUBLICATION-SERVICE/publication").pipe(
+
+  getArticles(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.apiUrl).pipe(
       tap((articles: Article[]) => {
-        this.tab=articles;
+        this.tab = articles;
+      }),
+      catchError((error) => {
+        console.error('Error fetching articles:', error);
+        return throwError(() => new Error('Error fetching articles'));
       })
     );
   }

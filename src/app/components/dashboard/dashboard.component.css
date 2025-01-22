@@ -2,3 +2,36 @@
     width: 100px;
     text-align: center;
 }
+.dashboard-cards {
+    margin-bottom: 20px;
+  }
+  .card {
+    width: 200px;
+    height: 150px;
+    text-align: center;
+    color: rgb(145, 85, 85); /* Text color for all cards */
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(192, 90, 177, 0.689);
+  }
+  .enseignant-card {
+    background-color: #42A5F5; /* Blue */
+  }
+  .etudiant-card {
+    background-color: #df5fc1; /* Blue */
+  }
+  
+  .events-card {
+    background-color: #66BB6A; /* Green */
+  }
+  
+  .tools-card {
+    background-color: #FFA726; /* Orange */
+  }
+  
+  .articles-card {
+    background-color: #26C6DA; /* Teal */
+  }
+  .chart-wrapper {
+    width: 500px;  /* Ajuster la largeur */
+    height: 500px; /* Ajuster la hauteur */
+  }

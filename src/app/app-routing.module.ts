@@ -7,10 +7,8 @@ import { ArticleComponent } from './components/article/article.component';
 import { EventComponent } from './components/event/event.component';
 import { LoginComponent } from './components/login/login.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
-import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
+import { ToolsCreateComponent } from './components/tools-form/tools-create.component';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
-import { EnseignantComponent } from './components/enseignant/enseignant.component';
-import { EtudiantComponent } from './components/etudiant/etudiant.component';
 import { authGuard } from './auth.guard';
 import { FullMemberComponent } from './components/full-member/full-member.component';
 
@@ -20,43 +18,11 @@ const routes: Routes = [
     pathMatch: 'full',
     component: LoginComponent
   },
+  
   {
-    path: 'teacher',
+    path: 'member',
     children: [{
       path: '',
-      pathMatch: 'full',
-      canActivate: [authGuard],
-      component: EnseignantComponent
-    },
-    {
-      path: 'create',
-      pathMatch: 'full',
-      canActivate: [authGuard],
-      component: MemberFormComponent
-    },
-    {
-      path: 'consult/:id',
-      pathMatch: 'full',
-      canActivate: [authGuard],
-      component: FullMemberComponent
-    },
-    {
-      path: 'edit/:id',
-      pathMatch: 'full',
-      canActivate: [authGuard],
-      component: MemberFormComponent
-    },]
-  },
-  {
-    path: 'student',
-    children: [{
-      path: '',
-      pathMatch: 'full',
-      canActivate: [authGuard],
-      component: EtudiantComponent
-    },
-    {
-      path: 'consult/:id',
       pathMatch: 'full',
       canActivate: [authGuard],
       component: FullMemberComponent

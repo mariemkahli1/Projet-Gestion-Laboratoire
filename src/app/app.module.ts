@@ -19,7 +19,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ToolComponent } from './components/tool/tool.component';
 import { ArticleComponent } from './components/article/article.component';
 import { EventComponent } from './components/event/event.component';
-import { LayoutComponent } from './components/layout/layout.component';
+import { LayoutComponent } from './components/template/layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {  MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
@@ -30,16 +30,12 @@ import {MatCardModule} from '@angular/material/card';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { ToolsCreateComponent } from './components/tools-create/tools-create.component';
+import { ToolsCreateComponent } from './components/tools-form/tools-create.component';
 import {MatSelectModule} from '@angular/material/select';
 import {  NgChartsModule } from 'ng2-charts';
 import { ArticleFormComponent } from './components/article-form/article-form.component';
-import { EnseignantComponent } from './components/enseignant/enseignant.component';
-import { EtudiantComponent } from './components/etudiant/etudiant.component';
 import { FullMemberComponent } from './components/full-member/full-member.component';
 import { AffectArticleToMemberComponent } from './components/affect-article-to-member/affect-article-to-member.component';
-import { AffectEventToMemberComponent } from './components/affect-event-to-member/affect-event-to-member.component';
-import { AffectToolToMemberComponent } from './components/affect-tool-to-member/affect-tool-to-member.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
@@ -56,12 +52,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     EventFormComponent,
     ToolsCreateComponent,
     ArticleFormComponent,
-    EnseignantComponent,
-    EtudiantComponent,
     FullMemberComponent,
     AffectArticleToMemberComponent,
-    AffectEventToMemberComponent,
-    AffectToolToMemberComponent,
+
   ],
   imports: [
     MatExpansionModule,

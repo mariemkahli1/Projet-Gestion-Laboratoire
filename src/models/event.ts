@@ -1,7 +1,8 @@
 export interface Event {
-    id:String,
+    target: HTMLInputElement;
+    id:number,
     titre:String,
-    dateDebut:String,
-    dateFin:String,
-    lieu:String,
+    dateDebut:Date,
+    dateFin:Date,
+    description:String,
 }

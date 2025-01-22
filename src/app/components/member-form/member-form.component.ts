@@ -11,84 +11,107 @@ import { MemberService } from 'src/services/member.service';
   styleUrls: ['./member-form.component.css']
 })
 export class MemberFormComponent implements OnInit {
-  constructor(private MS: MemberService, private router: Router, private activatedRoute: ActivatedRoute) { }
-  form: FormGroup = new FormGroup({
-    cin: new FormControl(null, [Validators.required]),
-    nom: new FormControl(null, [Validators.required]),
-    prenom: new FormControl(null, [Validators.required]),
-    dateNaissance: new FormControl(null, [Validators.required]),
-    cv: new FormControl(null, [Validators.required]),
-    email: new FormControl(null, [Validators.required , Validators.email]),
-    password: new FormControl("********", [Validators.required]),
-    sujet: new FormControl(null, [Validators.required]),
-    dateInscription: new FormControl(null, [Validators.required]),
-    diplome:  new FormControl(null, [Validators.required]),
-    grade: new FormControl(null, [Validators.required]),
-    etablissement: new FormControl(null, [Validators.required]),})
+  form!: FormGroup;
   memberGlobal!: Member;
-  type!:String ;
+  type!: string;
+
+  constructor(
+    private MS: MemberService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.checkMemberType()
-    const idcourant = this.activatedRoute.snapshot.params["id"];
-    if (!!idcourant) {
-      this.MS.getMemberByid(idcourant).subscribe((item) => {
-        this.memberGlobal = item
-        this.updateForm(item)
-      })
+    this.determineMemberType();
+    const currentId = this.activatedRoute.snapshot.params['id'];
+    if (currentId) {
+      this.MS.getMemberById(currentId).subscribe({
+        next: (member) => {
+          this.memberGlobal = member;
+          this.initializeForm(member);
+        },
+        error: (err) => console.error('Error fetching member:', err),
+      });
+    } else {
+      this.initializeForm();
     }
-    else {
-      this.initForm()
-    }
   }
-  checkMemberType(): void {
-    const url = window.location.href;
-    this.type = url.includes('teacher') ? 'teacher' : 'student';
-  }
-  initForm() {
-    this.form = new FormGroup({
-      cin: new FormControl(null, [Validators.required]),
-      nom: new FormControl(null, [Validators.required]),
-      prenom: new FormControl(null, [Validators.required]),
-      dateNaissance: new FormControl(null, [Validators.required]),
-      cv: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required , Validators.email]),
-      password: new FormControl("********", [Validators.required]),
-      sujet: new FormControl(null, [Validators.required]),
-      dateInscription: new FormControl(null, [Validators.required]),
-      diplome:  new FormControl(null, [Validators.required]),
-      grade: new FormControl(null, [Validators.required]),
-      etablissement: new FormControl(null, [Validators.required]),
-    });
-  }
-  updateForm(item: Member): void {
-    this.form = new FormGroup({
-      cin: new FormControl(item.cin, [Validators.required]),
-      nom: new FormControl(item.nom, [Validators.required]),
-      prenom: new FormControl(item.prenom, [Validators.required]),
-      dateNaissance: new FormControl(item.dateNaissance, [Validators.required]),
-      cv: new FormControl(item.cv, [Validators.required]),
-      email: new FormControl(item.email, [Validators.required]),
-      password: new FormControl("********", [Validators.required]),
-      sujet: new FormControl(item.sujet, [Validators.required]),
-      dateInscription: new FormControl(item.dateInscription, [Validators.required]),
-      diplome:  new FormControl(item.diplome, [Validators.required]),
-      grade: new FormControl(item.grade, [Validators.required]),
-      etablissement: new FormControl(item.etablissement, [Validators.required]),
-    });
-  }
-  OnSubmit() {
 
-    console.log(this.form.value)
-    const member1 = {
+
+  /**
+   * Determine the member type based on the URL or other logic.
+   */
+  determineMemberType(): void {
+    const url = this.router.url.toLowerCase();
+    this.type = url.includes('enseignant') ? 'Enseignant' : 'Etudiant';
+  }
+
+  /**
+   * Initialize the form with default values or existing member data.
+   * @param member Optional existing member data to prefill the form.
+   */
+  initializeForm(member?: Member): void {
+    this.form = new FormGroup({
+      cin: new FormControl(member?.cin || null, [Validators.required]),
+      nom: new FormControl(member?.nom || null, [Validators.required]),
+      prenom: new FormControl(member?.prenom || null, [Validators.required]),
+      dateNaissance: new FormControl(member?.dateNaissance || null, [Validators.required]),
+      cv: new FormControl(member?.cv || null, [Validators.required]),
+      email: new FormControl(member?.email || null, [Validators.required, Validators.email]),
+      password: new FormControl('********', [Validators.required]),
+      sujet: new FormControl(member?.sujet || null),
+      dateInscription: new FormControl(member?.dateInscription || null),
+      diplome: new FormControl(member?.diplome || null),
+      grade: new FormControl(member?.grade || null),
+      etablissement: new FormControl(member?.etablissement || null),
+    });
+  }
+
+  /**
+   * Submit the form data and save the member.
+   */
+  onSubmit(): void {
+    if (this.form.invalid) {
+      console.error('Form is invalid!');
+      return;
+    }
+
+    const formData = this.form.value;
+    const memberToSave: Member = {
       ...this.memberGlobal,
-      ...this.form.value,
+      ...formData,
+      createdDate: this.memberGlobal?.createdDate || new Date().toISOString(),
+    };
 
+    // Save or update the member
+    const saveObservable = this.memberGlobal?.id
+      ? this.MS.updateMember(this.memberGlobal.id, memberToSave)
+      : this.MS.saveMember(memberToSave);
+
+    saveObservable.subscribe({
+      next: () => {
+        // Redirect after successful submission
+        this.router.navigate(['/member']);
+      },
+      error: (err) => console.error('Error saving member:', err),
+    });
+  }
+  saveMember(): void {
+    if (this.form.valid) {
+      const memberToSave: Member = this.form.value;  // Get member data from the form
+  
+      this.MS.saveMember(memberToSave).subscribe({
+        next: (response) => {
+          console.log('Member saved successfully:', response);
+          this.router.navigate(['/members']);  // Navigate to another page after saving
+        },
+        error: (err) => {
+          console.error('Error saving member:', err);  // Log the error
+          alert('An error occurred while saving the member. Please try again.');  // Show user-friendly error
+        }
+      });
+    } else {
+      alert('Form is invalid. Please check the fields.');
     }
-    const member2 = {
-      ...member1,
-      createdDate: member1.createdDate ?? new Date().toISOString().toString()
-    }
-    this.type== 'teacher' ? this.MS.SaveEnseignant(member1).subscribe(() => { this.router.navigate(['/teacher']) }) : this.MS.SaveEtudiant(member1).subscribe(() => { this.router.navigate(['/student']) });
   }
 }

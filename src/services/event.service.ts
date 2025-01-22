@@ -9,32 +9,40 @@ import { Event } from 'src/models/event';
   providedIn: 'root'
 })
 export class EventService {
-  tab:Event[]=[]
-  SaveEvent(event:Event):Observable<void>{
-    return this.httpClient.post<void>("http://localhost:8100/EVENEMENT-SERVICE" ,event) ;
+  private readonly apiUrl = 'http://localhost:9000/EVENEMENTSERVICE/evenements';
+  tab: Event[] = [];
 
-  }
-  UpdateEvent(event:Event):Observable<void>{
-    return this.httpClient.put<void>("http://localhost:8100/EVENEMENT-SERVICE/evenement/update" ,event) ;
+  constructor(private httpClient: HttpClient) {}
 
+  // Ajouter un événement
+  SaveEvent(event: Event): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl, event);
   }
-  getEventByid(id:string):Observable<Event>{
-    return this.httpClient.get<Event>("http://localhost:8100/EVENEMENT-SERVICE/evenement/"+id)
 
+  // Mettre à jour un événement
+  UpdateEvent(id: string, event: Event): Observable<void> {
+    return this.httpClient.put<void>(`${this.apiUrl}/${id}`, event);
   }
-  deleteEventByid(id:string):Observable<void>{
-    return this.httpClient.delete<void>("http://localhost:8100/EVENEMENT-SERVICE/"+id)
 
+  // Récupérer un événement par son ID
+  getEventByid(id: string): Observable<Event> {
+    return this.httpClient.get<Event>(`${this.apiUrl}/${id}`);
   }
-  getEvents():Observable<Event[]>{
-    return this.httpClient.get<Event[]>("http://localhost:8100/EVENEMENT-SERVICE/evenement").pipe(
+
+  // Supprimer un événement par son ID
+  deleteEventByid(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  // Récupérer la liste de tous les événements
+  getEvents(): Observable<Event[]> {
+    return this.httpClient.get<Event[]>(this.apiUrl).pipe(
       tap((events: Event[]) => {
-        this.tab=events;
+        this.tab = events;
       })
     );
-
   }
+
   
 
-  constructor(private httpClient:HttpClient) { }
 }
