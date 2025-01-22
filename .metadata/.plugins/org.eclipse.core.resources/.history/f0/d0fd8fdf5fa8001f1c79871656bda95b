@@ -1,0 +1,158 @@
+package com.example.demo;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.example.demo.dao.MembreRepository;
+import com.example.demo.entities.EnseignantChercheur;
+import com.example.demo.entities.Etudiant;
+import com.example.demo.entities.Membre;
+import com.example.demo.service.IMemberService;
+
+import lombok.AllArgsConstructor;
+
+@SpringBootApplication
+@AllArgsConstructor
+public class MembreServiceApplication implements CommandLineRunner {
+	MembreRepository  membreRepository;
+	 
+	IMemberService memberService;
+
+	public static void main(String[] args) {
+		SpringApplication.run(MembreServiceApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+		Etudiant etd1=Etudiant.builder()
+				.cin("123456")
+				.dateInscription(new Date())
+				.dateNaissance(new Date())
+				.diplome("mastère")
+				.email("etd1@gmail.com")
+				.password("pass1")
+				.encadrant(null)
+				.cv("cv1")
+				.nom("abid")
+				.prenom("youssef")
+				.sujet("blockhain")
+				.build();
+		Etudiant etd2=Etudiant.builder()
+				.cin("1234567")
+				.dateInscription(new Date())
+				.dateNaissance(new Date())
+				.diplome("mastère")
+				.email("etd1@gmail.com")
+				.password("pass1")
+				.encadrant(null)
+				.cv("cv1")
+				.nom("abid")
+				.prenom("youssef")
+				.sujet("blockhain")
+				.build();
+		Etudiant etd3=Etudiant.builder()
+				.cin("1234560")
+				.dateInscription(new Date())
+				.dateNaissance(new Date())
+				.diplome("mastère")
+				.email("etd1@gmail.com")
+				.password("pass1")
+				.encadrant(null)
+				.cv("cv1")
+				.nom("abid")
+				.prenom("youssef")
+				.sujet("blockhain")
+				.build();
+		
+		Etudiant etd4=Etudiant.builder()
+				.cin("14560")
+				.dateInscription(new Date())
+				.dateNaissance(new Date())
+				.diplome("mas")
+				.email("etd2@gmail.com")
+				.password("pass2")
+				.encadrant(null)
+				.cv("cv2")
+				.nom("Kahli")
+				.prenom("Mariem")
+				.sujet("bloc")
+				.build();
+		membreRepository.save(etd1);
+		membreRepository.save(etd2);
+		membreRepository.save(etd3);
+		membreRepository.save(etd4);
+		
+		EnseignantChercheur ens1=EnseignantChercheur.builder()
+				.cin("14566")
+				.dateNaissance(new Date())
+				.email("etd2@gmail.com")
+				.password("pass2")
+				.grade("enseign")
+				.etablissment("enis")
+				.cv("cv2")
+				.nom("Kahli")
+				.prenom("Mariem")				
+				.build();
+		EnseignantChercheur ens2=EnseignantChercheur.builder()
+				.cin("145657")				
+				.dateNaissance(new Date())
+				.email("etd2@gmail.com")
+				.password("pass2")
+				.grade("enseign")
+				.etablissment("enis")
+				.cv("cv2")
+				.nom("Kahli")
+				.prenom("Mariem")
+				.build();
+		EnseignantChercheur ens3=EnseignantChercheur.builder()
+				.cin("14567")
+				.dateNaissance(new Date())
+				.email("etd2@gmail.com")
+				.password("pass2")
+				.grade("enseign")
+				.etablissment("enis")
+				.cv("cv2")
+				.nom("Kahli")
+				.prenom("Mariem")
+				.build();
+		membreRepository.save(ens1);
+		membreRepository.save(ens2);
+		membreRepository.save(ens3);
+		//afficher la liste des memebres dans le labo
+		List<Membre> mbrs=membreRepository.findAll();
+	
+		for (Membre membre: mbrs)
+			System.out.println(membre.getNom()+ ""+ membre.getNom());
+		//chercher un lelbre par ID 
+		Membre m1= membreRepository.findById(1L).get();
+		System.out.println(m1);
+		// Modifier un memebre 
+		m1.setEmail("mariem@gmail.com");
+		membreRepository.save(m1);
+		membreRepository.deleteById(2L);
+		
+		
+				// Update a Member
+				Membre m= memberService.findMember(1L);
+				m.setCv("cv7.pdf");
+				memberService.updateMember(m);
+				// Delete a Member
+				memberService.deleteMember(3L);
+				
+				memberService.affecterEtudiantToEnseignant(1L, 3L);
+			
+				List<Etudiant> etds= memberService.findByEncadrant(5L);
+				for (Etudiant etd:etds)
+					System.out.println(etd.getNom() + " " + etd.getPrenom());
+	}
+	
+
+}

@@ -1,0 +1,24 @@
+package com.example.demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public CorsWebFilter corsWebFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("http://localhost:4200"); // Remplacez avec votre origine front-end
+        config.addAllowedMethod("*"); // Autorise toutes les méthodes HTTP
+        config.addAllowedHeader("*"); // Autorise tous les en-têtes
+        config.setAllowCredentials(true); // Autorise les credentials
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config); // Applique la configuration à toutes les routes
+        return new CorsWebFilter(source);
+    }
+}
